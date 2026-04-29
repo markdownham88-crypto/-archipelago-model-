@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Archipelago Model — Revolutionary Organisational Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-2: #3a3a35;
+    --ink-3: #6a6a60;
+    --ink-4: #9a9a90;
+    --paper: #faf9f6;
+    --paper-warm: #f4f1eb;
+    --paper-mid: #ece9e1;
+    --teal: #1e6870;
+    --teal-lt: #e6f2f3;
+    --amber: #b85a10;
+    --amber-lt: #fdf2ea;
+    --green: #1a6030;
+    --green-lt: #e8f4ec;
+    --violet: #6040a0;
+    --violet-lt: #f0ecfb;
+    --red: #902030;
+    --rule: #d8d4cc;
+    --rule-dk: #b0aca0;
+    --serif: 'Playfair Display', Georgia, serif;
+    --body: 'Source Serif 4', Georgia, serif;
+    --mono: 'JetBrains Mono', monospace;
+    --col: 700px;
+    --wide: 980px;
+  }
+
+  html { background: var(--paper); color: var(--ink); font-family: var(--body); }
+  body { background: var(--paper); min-height: 100vh; }
+
+  /* ── TOP BAR ── */
+  .topbar { background: var(--ink); color: white; padding: .6rem 2rem; font-family: var(--mono); font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+  .topbar span { opacity: .5; }
+
+  /* ── HERO ── */
+  .hero { max-width: var(--wide); margin: 0 auto; padding: 5rem 2rem 3rem; }
+  .hero-eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; display: flex; align-items: center; gap: .75rem; }
+  .hero-eyebrow::after { content:''; flex:1; height:1px; background: var(--rule); }
+  .hero-title { font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 700; line-height: .96; color: var(--ink); letter-spacing: -.03em; margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--teal); }
+  .hero-deck { font-size: 1.2rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; max-width: 640px; font-style: italic; margin-bottom: 2rem; }
+  .hero-meta { display: flex; gap: 2rem; flex-wrap: wrap; padding: 1.25rem 0; border-top: 2px solid var(--ink); }
+  .meta-item { font-family: var(--mono); font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .meta-item strong { color: var(--ink); display: block; font-size: .8rem; margin-bottom: .15rem; }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: var(--col) 1fr; gap: 0 4rem; align-items: start; }
+  @media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } .aside { display: none; } }
+  .body { padding: 4rem 0 8rem; }
+
+  /* ── PART BREAKS ── */
+  .part { display: grid; grid-template-columns: 2px 1fr; gap: 0 1.5rem; margin: 5rem 0 3rem; align-items: start; }
+  .part-bar { background: var(--teal); height: 100%; min-height: 80px; border-radius: 1px; }
+  .part-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: .5rem; display: block; }
+  .part-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; color: var(--ink); line-height: 1.1; margin-bottom: .5rem; }
+  .part-sub { font-size: 1rem; color: var(--ink-3); font-style: italic; font-weight: 300; line-height: 1.5; }
+
+  /* ── SECTION HEADERS ── */
+  .sec-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-4); display: block; margin-top: 3.5rem; margin-bottom: .4rem; }
+  .body h2 { font-family: var(--serif); font-size: 1.9rem; font-weight: 600; line-height: 1.18; color: var(--ink); margin-bottom: 1.25rem; letter-spacing: -.01em; }
+  .body h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; color: var(--ink); margin: 2.5rem 0 .7rem; font-style: italic; }
+
+  /* ── TEXT ── */
+  .body p { font-size: 1.12rem; line-height: 1.9; color: var(--ink-2); margin-bottom: 1.5rem; font-weight: 300; }
+  .body p strong { color: var(--ink); font-weight: 500; }
+  .body p em { color: var(--ink); font-style: italic; }
+  .opening::first-letter { font-family: var(--serif); font-size: 5rem; font-weight: 700; float: left; line-height: .8; margin: .05em .1em 0 0; color: var(--teal); }
+
+  /* ── PULL QUOTES ── */
+  .pq { border-left: 4px solid var(--teal); padding: 1.25rem 0 1.25rem 1.75rem; margin: 2.5rem 0; }
+  .pq p { font-family: var(--serif); font-size: 1.35rem !important; font-style: italic; color: var(--ink) !important; line-height: 1.5 !important; margin: 0 0 .4rem !important; font-weight: 400; }
+  .pq-amber { border-left: 4px solid var(--amber); padding: 1.25rem 0 1.25rem 1.75rem; margin: 2.5rem 0; }
+  .pq-amber p { font-family: var(--serif); font-size: 1.35rem !important; font-style: italic; color: var(--ink) !important; line-height: 1.5 !important; margin: 0 0 .4rem !important; font-weight: 400; }
+  .pq-green { border-left: 4px solid var(--green); padding: 1.25rem 0 1.25rem 1.75rem; margin: 2.5rem 0; }
+  .pq-green p { font-family: var(--serif); font-size: 1.35rem !important; font-style: italic; color: var(--ink) !important; line-height: 1.5 !important; margin: 0 0 .4rem !important; font-weight: 400; }
+  .pq-cite { font-family: var(--mono); font-size: .68rem; color: var(--ink-4); letter-spacing: .05em; display: block; margin-top: .5rem; }
+
+  /* ── DIVIDERS ── */
+  .rule { display: flex; align-items: center; gap: 1rem; margin: 3rem 0 2rem; }
+  .rule::before, .rule::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .rule-glyph { font-family: var(--serif); font-size: 1.1rem; color: var(--ink-4); }
+
+  /* ── DIAGRAM WRAPPER ── */
+  .dg { background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 6px; padding: 1.75rem 1.5rem 1.25rem; margin: 2.5rem 0; }
+  .dg-title { font-family: var(--mono); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 1.5rem; text-align: center; }
+  .dg svg { display: block; width: 100%; height: auto; }
+  .dg-caption { font-size: .72rem; color: var(--ink-4); margin-top: .9rem; text-align: center; font-style: italic; line-height: 1.55; }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(295px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+  .card { background: var(--paper); padding: 1.3rem; }
+  .card-eyebrow { font-family: var(--mono); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: .5rem; }
+  .c-teal { color: var(--teal); }
+  .c-amber { color: var(--amber); }
+  .c-green { color: var(--green); }
+  .c-violet { color: var(--violet); }
+  .c-red { color: var(--red); }
+  .card-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: .6rem; }
+  .card-body { font-size: .85rem; color: var(--ink-2); line-height: 1.7; font-weight: 300; }
+  .card-note { font-size: .76rem; color: var(--ink-4); border-top: 1px solid var(--rule); padding-top: .6rem; margin-top: .75rem; font-style: italic; line-height: 1.5; }
+  .card-tag { display: inline-block; font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; padding: .2rem .55rem; border: 1px solid currentColor; border-radius: 2px; margin-top: .5rem; }
+
+  /* ── POSTURE CARDS (larger) ── */
+  .posture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+  .posture-card { background: var(--paper); padding: 1.4rem; }
+  .posture-han { font-size: 2.5rem; line-height: 1; margin-bottom: .5rem; display: block; color: var(--ink); }
+  .posture-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: .15rem; }
+  .posture-mode { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-3); margin-bottom: .75rem; display: block; text-transform: uppercase; }
+  .posture-body { font-size: .85rem; color: var(--ink-2); line-height: 1.72; font-weight: 300; margin-bottom: .75rem; }
+  .posture-exaptive { font-size: .78rem; color: var(--teal); border-top: 1px solid var(--teal-lt); padding-top: .6rem; font-family: var(--mono); line-height: 1.55; }
+  .posture-shadow { font-size: .76rem; color: var(--ink-4); font-style: italic; margin-top: .4rem; }
+
+  /* ── PRINCIPLES ── */
+  .principles { display: grid; gap: .55rem; margin: 1.5rem 0 2rem; }
+  .principle { display: grid; grid-template-columns: 36px 1fr; gap: .75rem; align-items: start; padding: .8rem 1rem; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); }
+  .p-num { font-family: var(--mono); font-size: .7rem; color: var(--teal); font-weight: 500; padding-top: .15rem; }
+  .p-body { font-size: .9rem; color: var(--ink-2); line-height: 1.65; font-weight: 300; }
+  .p-body strong { color: var(--ink); font-weight: 500; }
+
+  /* ── STRUCTURE LAYERS ── */
+  .layers { display: grid; gap: .7rem; margin: 2rem 0; }
+  .layer { display: grid; grid-template-columns: 140px 1fr; gap: 1.25rem; border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.25rem; align-items: start; background: var(--paper); }
+  .layer-label { font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); line-height: 1.5; }
+  .layer-name { font-family: var(--serif); font-size: .92rem; font-weight: 600; color: var(--teal); margin-bottom: .25rem; }
+  .layer-body { font-size: .84rem; color: var(--ink-2); line-height: 1.65; font-weight: 300; }
+
+  /* ── COMPARE TABLE ── */
+  .compare-wrap { overflow-x: auto; margin: 2rem 0; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  .compare-table th { font-family: var(--mono); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); padding: .65rem .85rem; border-bottom: 2px solid var(--rule); text-align: left; white-space: nowrap; }
+  .compare-table td { padding: .75rem .85rem; border-bottom: 1px solid var(--paper-mid); color: var(--ink-2); line-height: 1.5; font-weight: 300; vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td.n { font-family: var(--serif); color: var(--ink); font-weight: 600; font-size: .88rem; white-space: nowrap; }
+  .compare-table tr.hl td { background: var(--teal-lt); }
+
+  /* ── SIDEBAR ── */
+  .aside { padding: 4rem 0 8rem; position: sticky; top: 2rem; }
+  .aside-block { margin-bottom: 2.75rem; }
+  .aside-label { font-family: var(--mono); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-4); border-bottom: 1px solid var(--rule); padding-bottom: .4rem; margin-bottom: .8rem; display: block; }
+  .toc a { display: block; font-size: .82rem; color: var(--ink-3); text-decoration: none; padding: .28rem 0; line-height: 1.35; transition: color .15s; }
+  .toc a:hover { color: var(--teal); }
+  .toc-n { font-family: var(--mono); font-size: .62rem; color: var(--ink-4); margin-right: .35rem; }
+  .toc-part { font-family: var(--mono); font-size: .58rem; color: var(--teal); letter-spacing: .1em; text-transform: uppercase; margin-top: 1.1rem; margin-bottom: .2rem; display: block; }
+  .aside-note { font-size: .81rem; color: var(--ink-3); line-height: 1.6; padding: .5rem .75rem; border-left: 2px solid var(--rule); font-style: italic; margin-bottom: .5rem; }
+
+  /* ── FOOTER ── */
+  footer { max-width: var(--wide); margin: 0 auto; padding: 1.75rem 2rem 4rem; border-top: 2px solid var(--ink); }
+  .footer-tags { font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-4); line-height: 2; }
+  hr.br { border: none; border-top: 1px solid var(--rule); margin: 3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>The Archipelago Model</span>
+  <span>Radical Organisational Design · 2026</span>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Organisational Design · Fluid Leadership · Exaptation · Bricolage · Swarm Formation · 流動場</div>
+  <h1 class="hero-title">The Organisation<br>That <em>Will Not</em><br>Stand Still</h1>
+  <p class="hero-deck">The Archipelago Model: a new architecture for organisations built to be permanently entrepreneurial, structurally disruptive, and exaptively alive — designed not to reach a stable form but to remain in productive motion forever.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><strong>Framework</strong>Archipelago Model</div>
+    <div class="meta-item"><strong>Orientation</strong>Radical · Disruptive</div>
+    <div class="meta-item"><strong>Core Concepts</strong>Fluid Leadership · Exaptation · Bricolage</div>
+    <div class="meta-item"><strong>Theoretical Base</strong>CCO · Stingl & McClellan · Gould & Vrba · Baker & Nelson</div>
+    <div class="meta-item"><strong>Empirical Vanguard</strong>Haier · Morning Star · SINA · Bayer DSO · McChrystal</div>
+  </div>
+</div>
+
+<div class="wrap">
+<article class="body">
+
+<!-- ══════════════════════════════════ -->
+<!-- PROLOGUE -->
+<!-- ══════════════════════════════════ -->
+
+<p class="opening">The organisation of the future will not be stable. Stability — once the supreme virtue of the well-managed enterprise, the sign that strategy had conquered contingency, that hierarchy had tamed chaos, that the machine was running smoothly — is now the primary symptom of organisational death. In a world where the competitive landscape rewrites itself faster than annual planning cycles can track, where AI collapses the cost of reconfiguration toward zero, where the workforce generation entering the labour market would rather build something new than manage something old, an organisation that achieves stable form has achieved the most dangerous thing possible: it has stopped becoming.</p>
+
+<p>The Archipelago Model is not a model for better-managed stability. It is a model for <strong>permanent productive instability</strong> — an organisational architecture designed to maintain the creative tension between formation and dissolution, between the concentrated energy of the new venture and the connective tissue of collective purpose, between the radical individual act of stepping up and the communicative practice of meaning-making that makes that act coherent rather than simply disruptive. It is built on three radical premises that no mainstream organisational model has yet taken seriously simultaneously: that <strong>dissolution is as valuable as formation</strong>; that <strong>leadership is a temporary posture, not a permanent identity</strong>; and that the most important thing an organisation can do with a capability built for one purpose is to <strong>exapt it for another</strong> — to take the feather that evolved for warmth and discover that, recombined with the right conditions, it can fly.</p>
+
+<div class="pq"><p>"The Archipelago is not an organisation that achieves a form. It is an organisation that achieves a movement. The measure of its health is not stability. It is the quality of its becoming."</p></div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- PART 1 -->
+<!-- ══════════════════════════════════ -->
+
+<div class="part">
+  <div class="part-bar"></div>
+  <div>
+    <span class="part-label">Part One</span>
+    <div class="part-title">Why Every Existing Model Fails the Radical Premise</div>
+    <div class="part-sub">The crisis is not that organisations are badly designed. It is that they are designed at all — as though organisation were a solved problem rather than a perpetual creative act.</div>
+  </div>
+</div>
+
+<span class="sec-label">Section I</span>
+<h2>The Permanent Crisis of the Well-Managed Organisation</h2>
+
+<p>McKinsey's State of Organisations 2026 report reaches a conclusion that conventional management theory cannot process: transformation is no longer a programme with a completion date. It is a <em>permanent condition</em>. The organisations that thrive will be those that move from reacting to technology to <strong>shaping it</strong> — regularly stress-testing their operating models, leadership roles, and talent pipelines against alternative futures. The language of stability, alignment, and equilibrium — the entire vocabulary of 20th-century organisational design — is not merely insufficient for this condition. It actively produces the pathologies it claims to cure.</p>
+
+<p>The Corporate Rebels' catalogue of ten progressive organisational structures — amoebas, cells, circles, chains, fractals, honeycombs, lattices, micro-communities, mini-factories, squads — represents the most comprehensive mapping of post-hierarchical experiment available. Each model has produced genuine results. And each carries an unspoken assumption that has limited its radicalism: that the goal of organisational design is to find <em>the right stable configuration</em>. Better cells, better circles, better squads — but still a fixed form that you converge on and then inhabit. The Archipelago rejects this assumption entirely. The right configuration does not exist. The right <em>movement</em> does.</p>
+
+<p>There are four specific failure modes that even the most progressive existing models share, and that the Archipelago is designed to overcome:</p>
+
+<div class="card-grid">
+  <div class="card">
+    <span class="card-eyebrow c-red">Failure Mode I</span>
+    <div class="card-title">Static Role Architecture</div>
+    <div class="card-body">Even the most self-managing organisations still encode people into stable roles — nurse, entrepreneur, squad member, doer. Morning Star's CLOUs are renegotiated annually. Haier's micro-enterprise leaders have specific entrepreneurial identities. Holacracy distributes roles into circles, but the roles are still positional containers. The Archipelago dissolves role entirely and replaces it with fluid posture — an orientation that any person inhabits for as long as the situation requires, then releases when the situation changes.</div>
+    <div class="card-note">Implication: role fluency rather than role clarity becomes the primary organisational competence.</div>
+  </div>
+  <div class="card">
+    <span class="card-eyebrow c-red">Failure Mode II</span>
+    <div class="card-title">Dissolution as Failure</div>
+    <div class="card-body">In every existing model, the ending of a team, project, or unit is treated as a failure — or at best a completion. The organisation grows by accumulation: more teams, more processes, more infrastructure. Dissolution is managed defensively, through restructuring programmes that treat the end of things as a cost to be minimised. The Archipelago treats dissolution as a primary creative act, as important as formation, equally well-designed, and generating specific value: the retrospective that closes a Value Island creates new semiotic scaffolding for the next formation cycle.</div>
+    <div class="card-note">Implication: the dissolution protocol is as precisely designed as the formation protocol. Both are ceremonies of organisational renewal.</div>
+  </div>
+  <div class="card">
+    <span class="card-eyebrow c-red">Failure Mode III</span>
+    <div class="card-title">Exaptation Blindness</div>
+    <div class="card-body">Every organisation develops capabilities that were built for one purpose and that contain latent potential for radically different purposes. The feather that evolved for thermoregulation became the wing. The SMS infrastructure built for network operators became the backbone of the mobile internet. The pandemic logistics capability built for PPE distribution became, in the most adaptive organisations, a template for distributed care coordination. Existing models treat capabilities as resources to deploy more efficiently in their intended domains. The Archipelago treats capabilities as raw material for permanent creative repurposing.</div>
+    <div class="card-note">Implication: every Value Island retrospective explicitly asks what latent capabilities have been built that could serve radically different purposes.</div>
+  </div>
+  <div class="card">
+    <span class="card-eyebrow c-red">Failure Mode IV</span>
+    <div class="card-title">Entrepreneurship as a Department</div>
+    <div class="card-body">The standard response to the need for entrepreneurial energy in large organisations is to create a dedicated innovation team, an R&D lab, a startup studio, or a venture arm. This quarantines the entrepreneurial impulse behind a departmental boundary and produces the worst of both worlds: the main organisation is insulated from disruption, and the innovation unit is insulated from the operational knowledge that would make its disruptions practical. The Archipelago makes entrepreneurial posture a system-wide property — not a function but a permanent atmospheric charge that permeates every island.</div>
+    <div class="card-note">Implication: the Archipelago has no innovation department. It has an innovation <em>climate</em> — the result of architectural choices that make bricolage, experimentation, and radical repurposing structurally natural rather than specially incentivised.</div>
+  </div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- PART 2 -->
+<!-- ══════════════════════════════════ -->
+
+<div class="part">
+  <div class="part-bar"></div>
+  <div>
+    <span class="part-label">Part Two</span>
+    <div class="part-title">The Radical Premises — What the Archipelago Actually Is</div>
+    <div class="part-sub">An organisation designed to remain permanently in productive motion: forming, dissolving, recombining, exapting — without ever settling into the stable form that would signal its death.</div>
+  </div>
+</div>
+
+<span class="sec-label">Section II</span>
+<h2>流動場 — The Flowing Field: The Organisation as Weather System</h2>
+
+<p>The deepest premise of the Archipelago Model is not structural. It is atmospheric. The organisation is not a set of boxes connected by lines. It is a <strong>flowing field</strong> — 流動場 (liúdòng chǎng) — a dynamic medium in which forces become visible, in which temporary crystallisations form and dissolve, in which the patterns that emerge are never entirely the result of design and never entirely the result of accident. Like a weather system, it has recognisable features — fronts, currents, pressure zones, storm cells — but these features are not fixed. They are temporary conditions produced by the interaction of underlying forces, and the moment you try to nail them in place, you have destroyed the system.</p>
+
+<p>This is not metaphor. It is a precise description of what the Archipelago Model prescribes. The organisation that the Archipelago builds is not an organisation with fixed teams and fluid communication practices. It is an organisation in which <em>the teams themselves are temporary</em>, in which <em>the roles themselves are situational</em>, in which <em>the purpose itself is continuously interpreted rather than once established</em>. The weather analogy holds: the purpose is the climate — the persistent, large-scale tendency of the system that gives meaning to the local weather without determining it. The islands of certainty — the temporary formations that provide orientation — are the storms that clarify the atmosphere without becoming permanent features of the landscape.</p>
+
+<!-- DIAGRAM 1: THE FLOWING FIELD -->
+<div class="dg">
+  <div class="dg-title">Diagram I — The Flowing Field: 流動場 Organisation as Weather System</div>
+  <svg viewBox="0 0 960 500" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+    <defs>
+      <!-- Sea pressure zones -->
+      <radialGradient id="fgA" cx="28%" cy="38%" r="40%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="fgB" cx="72%" cy="58%" r="38%">
+        <stop offset="0%" stop-color="#b85a10" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="#b85a10" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="fgC" cx="55%" cy="20%" r="28%">
+        <stop offset="0%" stop-color="#1a6030" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="#1a6030" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Island glows -->
+      <radialGradient id="glowT" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".22"/>
+        <stop offset="60%" stop-color="#1e6870" stop-opacity=".07"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#1a6030" stop-opacity=".20"/>
+        <stop offset="60%" stop-color="#1a6030" stop-opacity=".06"/>
+        <stop offset="100%" stop-color="#1a6030" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="glowCf" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".28"/>
+        <stop offset="60%" stop-color="#1e6870" stop-opacity=".09"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="isF2">
+        <feGaussianBlur stdDeviation="3"/>
+      </filter>
+      <filter id="dropS">
+        <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0d2a1a" flood-opacity=".13"/>
+      </filter>
+      <marker id="waT" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+        <path d="M0,0 L9,3.5 L0,7 Z" fill="#1e6870" opacity=".7"/>
+      </marker>
+      <marker id="waG" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+        <path d="M0,0 L9,3.5 L0,7 Z" fill="#1a6030" opacity=".65"/>
+      </marker>
+      <marker id="waA" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+        <path d="M0,0 L9,3.5 L0,7 Z" fill="#b85a10" opacity=".55"/>
+      </marker>
+      <marker id="waGr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+        <path d="M0,0 L9,3.5 L0,7 Z" fill="#9a9a90" opacity=".5"/>
+      </marker>
+    </defs>
+
+    <!-- ── SEA BACKGROUND ── -->
+    <rect width="960" height="500" fill="#edf5f6" rx="5"/>
+
+    <!-- Pressure zone overlays -->
+    <ellipse cx="268" cy="188" rx="280" ry="190" fill="url(#fgA)"/>
+    <ellipse cx="690" cy="300" rx="250" ry="165" fill="url(#fgB)"/>
+    <ellipse cx="528" cy="100" rx="210" ry="120" fill="url(#fgC)"/>
+
+    <!-- ── CURRENT LINES — 8 organic flow paths ── -->
+    <path d="M0,65 C120,48 240,82 380,60 C480,44 580,78 700,58 C800,42 880,68 960,55" fill="none" stroke="#1e6870" stroke-width="1" stroke-opacity=".13" stroke-dasharray="8,10"/>
+    <path d="M0,115 C140,95 280,132 420,108 C530,90 640,128 780,105 C870,90 930,115 960,108" fill="none" stroke="#1e6870" stroke-width="0.8" stroke-opacity=".10" stroke-dasharray="7,10"/>
+    <path d="M0,195 C130,172 265,212 420,188 C550,168 665,208 820,182 C890,170 940,195 960,188" fill="none" stroke="#b85a10" stroke-width="0.8" stroke-opacity=".10" stroke-dasharray="7,10"/>
+    <path d="M0,268 C150,245 300,285 460,260 C580,240 695,278 850,252 C910,242 950,265 960,258" fill="none" stroke="#b85a10" stroke-width="0.7" stroke-opacity=".09" stroke-dasharray="6,10"/>
+    <path d="M0,338 C160,315 320,355 490,330 C610,312 725,348 880,322 C930,314 960,334 960,330" fill="none" stroke="#1a6030" stroke-width="0.7" stroke-opacity=".09" stroke-dasharray="6,10"/>
+    <path d="M0,408 C170,385 340,425 520,400 C638,382 755,415 910,392 C940,387 960,405 960,400" fill="none" stroke="#1a6030" stroke-width="0.6" stroke-opacity=".07" stroke-dasharray="6,10"/>
+    <path d="M0,458 C180,438 370,465 560,448 C665,438 780,460 960,448" fill="none" stroke="#9a9a90" stroke-width="0.5" stroke-opacity=".07" stroke-dasharray="5,10"/>
+
+    <!-- ── CLIMATE LABEL ── -->
+    <text x="480" y="28" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#5a6a60" font-style="italic" opacity=".75">PURPOSE = CLIMATE · Islands = temporary weather · Field = the medium of all motion</text>
+
+    <!-- ══ ISLAND A — top-left, active, solid ══ -->
+    <ellipse cx="218" cy="168" rx="108" ry="66" fill="url(#glowT)" filter="url(#isF2)"/>
+    <ellipse cx="218" cy="168" rx="96" ry="56" fill="white" fill-opacity=".55" stroke="#1e6870" stroke-width="2" filter="url(#dropS)"/>
+    <!-- network nodes inside -->
+    <circle cx="192" cy="155" r="6.5" fill="#1e6870" opacity=".80"/>
+    <circle cx="228" cy="145" r="6.5" fill="#1e6870" opacity=".80"/>
+    <circle cx="258" cy="162" r="6.5" fill="#1e6870" opacity=".80"/>
+    <circle cx="245" cy="185" r="5.5" fill="#1e6870" opacity=".65"/>
+    <circle cx="205" cy="188" r="5.5" fill="#1e6870" opacity=".65"/>
+    <circle cx="180" cy="172" r="5" fill="#1e6870" opacity=".55"/>
+    <line x1="192" y1="155" x2="228" y2="145" stroke="#1e6870" stroke-width="1.2" opacity=".55"/>
+    <line x1="228" y1="145" x2="258" y2="162" stroke="#1e6870" stroke-width="1.2" opacity=".55"/>
+    <line x1="258" y1="162" x2="245" y2="185" stroke="#1e6870" stroke-width="1.2" opacity=".55"/>
+    <line x1="245" y1="185" x2="205" y2="188" stroke="#1e6870" stroke-width="1.2" opacity=".55"/>
+    <line x1="205" y1="188" x2="180" y2="172" stroke="#1e6870" stroke-width="1.2" opacity=".55"/>
+    <line x1="180" y1="172" x2="192" y2="155" stroke="#1e6870" stroke-width="1.2" opacity=".55"/>
+    <line x1="192" y1="155" x2="245" y2="185" stroke="#1e6870" stroke-width="0.7" opacity=".30"/>
+    <text x="218" y="212" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="12" fill="#1e6870" font-weight="700" font-style="italic">Value Island A</text>
+    <text x="218" y="226" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#4a7a70">forming · active · 6wk lifespan</text>
+
+    <!-- ══ ISLAND C — top-right, dissolving, dashed, fading ══ -->
+    <ellipse cx="700" cy="132" rx="105" ry="58" fill="none" stroke="#b85a10" stroke-width="1.8" stroke-dasharray="7,5" stroke-opacity=".45"/>
+    <ellipse cx="700" cy="132" rx="88" ry="46" fill="#b85a10" fill-opacity=".04"/>
+    <!-- fading nodes -->
+    <circle cx="666" cy="120" r="5.5" fill="#b85a10" opacity=".32"/>
+    <circle cx="702" cy="110" r="5.5" fill="#b85a10" opacity=".32"/>
+    <circle cx="736" cy="128" r="5.5" fill="#b85a10" opacity=".32"/>
+    <circle cx="720" cy="150" r="5" fill="#b85a10" opacity=".25"/>
+    <circle cx="682" cy="152" r="5" fill="#b85a10" opacity=".25"/>
+    <line x1="666" y1="120" x2="702" y2="110" stroke="#b85a10" stroke-width="1" opacity=".22"/>
+    <line x1="702" y1="110" x2="736" y2="128" stroke="#b85a10" stroke-width="1" opacity=".22"/>
+    <line x1="736" y1="128" x2="720" y2="150" stroke="#b85a10" stroke-width="1" opacity=".22"/>
+    <text x="700" y="172" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="12" fill="#b85a10" font-weight="600" font-style="italic" opacity=".58">Value Island C</text>
+    <text x="700" y="186" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10" opacity=".50">dissolving → retrospective</text>
+
+    <!-- ══ CONFLUENCE ISLAND — large, centre ══ -->
+    <ellipse cx="476" cy="308" rx="148" ry="86" fill="url(#glowCf)" filter="url(#isF2)"/>
+    <ellipse cx="476" cy="308" rx="132" ry="74" fill="white" fill-opacity=".52" stroke="#1e6870" stroke-width="2.5" filter="url(#dropS)"/>
+    <!-- inner ring -->
+    <ellipse cx="476" cy="308" rx="110" ry="58" fill="none" stroke="#1e6870" stroke-width="1" stroke-opacity=".22" stroke-dasharray="5,4"/>
+    <text x="476" y="296" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="15" fill="#1e6870" font-weight="700">Confluence Island</text>
+    <text x="476" y="314" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#1e6870">A + B + D coordinating</text>
+    <text x="476" y="330" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a6a60">defined lifespan · retrospective planned</text>
+
+    <!-- ══ ISLAND D — lower-right, nascent, dotted ══ -->
+    <ellipse cx="790" cy="390" rx="86" ry="52" fill="none" stroke="#1a6030" stroke-width="1.5" stroke-dasharray="4,4" stroke-opacity=".62"/>
+    <ellipse cx="790" cy="390" rx="72" ry="42" fill="#1a6030" fill-opacity=".04"/>
+    <circle cx="762" cy="380" r="5.5" fill="#1a6030" opacity=".52"/>
+    <circle cx="796" cy="368" r="5.5" fill="#1a6030" opacity=".52"/>
+    <circle cx="822" cy="388" r="5.5" fill="#1a6030" opacity=".52"/>
+    <circle cx="800" cy="408" r="5" fill="#1a6030" opacity=".42"/>
+    <line x1="762" y1="380" x2="796" y2="368" stroke="#1a6030" stroke-width="1" opacity=".38"/>
+    <line x1="796" y1="368" x2="822" y2="388" stroke="#1a6030" stroke-width="1" opacity=".38"/>
+    <line x1="822" y1="388" x2="800" y2="408" stroke="#1a6030" stroke-width="1" opacity=".38"/>
+    <text x="790" y="432" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="12" fill="#1a6030" font-style="italic">Value Island D</text>
+    <text x="790" y="446" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#7a9a80">emerging · day 3</text>
+
+    <!-- ══ HORIZON ISLAND — bottom-left band ══ -->
+    <rect x="55" y="426" width="260" height="50" rx="6" fill="white" fill-opacity=".60" stroke="#1a1a18" stroke-width="1.5" stroke-dasharray="8,4" filter="url(#dropS)"/>
+    <text x="185" y="446" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#1a1a18" letter-spacing=".8">HORIZON ISLAND</text>
+    <text x="185" y="462" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="10" fill="#5a6a60" font-style="italic">tends purpose · shapes climate</text>
+
+    <!-- ══ COMMONS — upper-left box ══ -->
+    <rect x="28" y="28" width="122" height="55" rx="5" fill="white" fill-opacity=".65" stroke="#9a9a90" stroke-width="1.2" filter="url(#dropS)"/>
+    <text x="89" y="48" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#5a6a60" letter-spacing=".5">COMMONS</text>
+    <text x="89" y="63" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="10" fill="#8a8a80" font-style="italic">shared infra</text>
+
+    <!-- ══ SIGNAL indicator — left side ══ -->
+    <rect x="28" y="355" width="96" height="62" rx="5" fill="white" fill-opacity=".62" stroke="#d8d4cc" stroke-width="1" filter="url(#dropS)"/>
+    <text x="76" y="375" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6040a0">訊 SIGNAL</text>
+    <text x="76" y="392" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="10" fill="#5a6a60" font-style="italic">reads</text>
+    <text x="76" y="406" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="10" fill="#5a6a60" font-style="italic">weather</text>
+
+    <!-- ══ CURRENTS — connecting paths ══ -->
+    <!-- A → Confluence -->
+    <path d="M 312,188 C 360,220 400,258 346,290" fill="none" stroke="#1e6870" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#waT)" opacity=".55"/>
+    <!-- C dissolving → D emerging (members released) -->
+    <path d="M 738,162 C 760,220 790,310 792,362" fill="none" stroke="#b85a10" stroke-width="1.4" stroke-dasharray="4,6" marker-end="url(#waA)" opacity=".40"/>
+    <text x="800" y="265" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10" opacity=".58">members</text>
+    <text x="800" y="278" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10" opacity=".58">released</text>
+    <!-- Confluence → D -->
+    <path d="M 602,318 C 660,348 720,368 708,378" fill="none" stroke="#1a6030" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#waG)" opacity=".45"/>
+    <!-- Horizon → framing current -->
+    <path d="M 185,426 C 240,395 290,360 340,330" fill="none" stroke="#1a1a18" stroke-width="1.2" stroke-dasharray="4,5" marker-end="url(#waGr)" opacity=".28"/>
+  </svg>
+  <div class="dg-caption">The 流動場 flowing field: islands form, do work, and dissolve in perpetual motion. Islands at different lifecycle stages coexist simultaneously — A is active, C is dissolving and releasing members, D is emerging, a Confluence Island coordinates A+B+D around a shared challenge. The Horizon Island and Commons are permanent features of the climate, not of the weather. The currents are communicative practice: framing, co-creating, connecting — always in motion.</div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<span class="sec-label">Section III</span>
+<h2>Exaptation — The Radical Repurposing Imperative</h2>
+
+<p>Gould and Vrba introduced the concept of exaptation in 1982 to describe a phenomenon that Darwinian natural selection had systematically undervalued: the ability of a trait that evolved for one function to be recruited for a radically different function when the conditions change. Feathers evolved for thermoregulation. They were exapted for flight. The middle ear bones of mammals evolved as jaw joints in reptiles. The swim bladder of fish became the lung. In each case, the structural possibility of a completely new function was latent in an existing adaptation — not designed in, not predicted, not incremental improvement. A radical repurposing that could not have been anticipated from within the original functional logic.</p>
+
+<p>The most entrepreneurially alive organisations in the world are exaptive machines. They treat capabilities built for one purpose as raw material for completely different purposes the moment the original context changes or a new context presents itself. <strong>Haier's logistics infrastructure</strong>, built to manage the supply chain for white goods across 160 countries, became the backbone of a healthcare delivery network during the pandemic. <strong>Morning Star's peer accountability network</strong>, designed for tomato processing coordination, was exapted into a continuous peer learning system that has become one of the most sophisticated distributed knowledge management structures in manufacturing. <strong>SINA's freesponsibility model</strong> — built to help refugee youth in Uganda create social enterprises — has been exapted into a template for decentralised innovation incubation that has scaled to 9 countries and 120+ enterprises without a single manager.</p>
+
+<div class="pq-amber"><p>"Exaptation is not repurposing. Repurposing is deliberate. Exaptation is the discovery that something you already have is capable of something you never intended — and the organisational courage to follow that discovery wherever it leads, even when it disrupts the original function."</p></div>
+
+<p>The Archipelago Model builds exaptive potential into its architecture through three specific design choices. First: <strong>retrospectives as exaptation audits</strong>. When a Value Island dissolves, its retrospective explicitly asks not only what was learned about the island's original purpose but what latent capabilities were built that could be deployed in radically different contexts. Second: <strong>the Signal posture as exaptation radar</strong>. The Signal's function includes scanning the organisation's existing capability landscape for adjacencies and discontinuous possibilities — the ability to perceive that a capability built for context A might be extraordinarily powerful in context Z. Third: <strong>Confluence Islands as experimental exaptation chambers</strong>. When islands with very different capabilities form a Confluence Island, the interaction between their different ways of working often generates exaptive possibilities that neither could have produced alone.</p>
+
+<!-- DIAGRAM 2: EXAPTATION CIRCUIT -->
+<div class="dg">
+  <div class="dg-title">Diagram II — The Exaptation Circuit: How the Archipelago Radically Repurposes Capabilities</div>
+  <svg viewBox="0 0 960 460" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+    <defs>
+      <linearGradient id="exOrig" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#9a9a90" stop-opacity=".15"/>
+        <stop offset="100%" stop-color="#9a9a90" stop-opacity=".04"/>
+      </linearGradient>
+      <linearGradient id="exAudit" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#b85a10" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#b85a10" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="exSig" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#6040a0" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#6040a0" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="exLeap" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity=".06"/>
+      </linearGradient>
+      <filter id="exF"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0d2a1a" flood-opacity=".12"/></filter>
+      <marker id="exA" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#1e6870" opacity=".75"/>
+      </marker>
+      <marker id="exAa" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#b85a10" opacity=".75"/>
+      </marker>
+      <marker id="exAp" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#6040a0" opacity=".70"/>
+      </marker>
+      <marker id="exAg" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#1a6030" opacity=".75"/>
+      </marker>
+    </defs>
+
+    <rect width="960" height="460" fill="#f4f1eb" rx="5"/>
+
+    <!-- ── STAGE 1: ORIGINAL CONTEXT ── -->
+    <rect x="28" y="68" width="210" height="130" rx="7" fill="url(#exOrig)" stroke="#9a9a90" stroke-width="1.8" filter="url(#exF)"/>
+    <rect x="28" y="68" width="210" height="7" rx="4" fill="#9a9a90" opacity=".60"/>
+    <text x="133" y="94" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a60" letter-spacing=".6">ORIGINAL CONTEXT</text>
+    <text x="133" y="116" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="16" fill="#3a3a35" font-style="italic" font-weight="600">Capability X</text>
+    <text x="133" y="135" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">built for purpose A</text>
+    <text x="133" y="150" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">performing well</text>
+    <text x="133" y="170" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="9.5" fill="#9a9a90" font-style="italic">e.g. Haier logistics · SINA freesponsibility</text>
+    <text x="133" y="186" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="9.5" fill="#9a9a90" font-style="italic">Morning Star CLOU · feathers</text>
+
+    <!-- Context shift lightning -->
+    <text x="290" y="128" text-anchor="middle" font-size="32" fill="#b85a10" opacity=".65">⚡</text>
+    <text x="290" y="152" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10" opacity=".80">context</text>
+    <text x="290" y="164" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10" opacity=".80">shift</text>
+    <line x1="238" y1="133" x2="268" y2="133" stroke="#b85a10" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#exAa)" opacity=".65"/>
+
+    <!-- ── RETROSPECTIVE AUDIT ── -->
+    <rect x="318" y="38" width="220" height="188" rx="7" fill="url(#exAudit)" stroke="#b85a10" stroke-width="2" filter="url(#exF)"/>
+    <rect x="318" y="38" width="220" height="7" rx="4" fill="#b85a10" opacity=".80"/>
+    <text x="428" y="64" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#b85a10" letter-spacing=".5">RETROSPECTIVE</text>
+    <text x="428" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#b85a10" letter-spacing=".5">AUDIT</text>
+    <text x="428" y="100" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#3a3a35" font-style="italic">What can this do</text>
+    <text x="428" y="116" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#3a3a35" font-style="italic">that it was not</text>
+    <text x="428" y="132" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#3a3a35" font-style="italic">designed to do?</text>
+    <text x="334" y="154" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a5a50">· What latent capacity emerged?</text>
+    <text x="334" y="169" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a5a50">· Where else could this apply?</text>
+    <text x="334" y="184" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a5a50">· What must we let go to see it?</text>
+    <text x="334" y="199" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a5a50">· Who else in the field needs this?</text>
+    <text x="334" y="214" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a5a50">· What becomes possible if reframed?</text>
+
+    <!-- ── SIGNAL SCAN ── -->
+    <rect x="318" y="248" width="220" height="80" rx="7" fill="url(#exSig)" stroke="#6040a0" stroke-width="1.8" filter="url(#exF)"/>
+    <rect x="318" y="248" width="220" height="7" rx="4" fill="#6040a0" opacity=".70"/>
+    <text x="428" y="272" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#6040a0">訊 SIGNAL SCAN</text>
+    <text x="428" y="292" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#3a3a35" font-style="italic">reads adjacencies</text>
+    <text x="428" y="310" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#7a7a90">detects latent potential before others</text>
+
+    <!-- Arrows: audit + signal → exaptation -->
+    <path d="M 538,133 Q 590,133 614,165" fill="none" stroke="#b85a10" stroke-width="2" marker-end="url(#exAa)" opacity=".70"/>
+    <path d="M 538,288 Q 590,288 614,252" fill="none" stroke="#6040a0" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#exAp)" opacity=".65"/>
+
+    <!-- ── EXAPTIVE LEAP ── -->
+    <rect x="632" y="78" width="298" height="222" rx="7" fill="url(#exLeap)" stroke="#1e6870" stroke-width="2.5" filter="url(#exF)"/>
+    <rect x="632" y="78" width="298" height="8" rx="4" fill="#1e6870" opacity=".85"/>
+    <text x="781" y="106" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#1e6870" letter-spacing=".5">EXAPTIVE LEAP</text>
+    <text x="781" y="132" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="20" fill="#1a1a18" font-weight="700">New Purpose Z</text>
+    <text x="781" y="154" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#5a6a60" font-style="italic">radically different</text>
+    <text x="781" y="170" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="12" fill="#5a6a60" font-style="italic">from original design</text>
+    <!-- Tick list -->
+    <text x="650" y="196" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">✓ New Value Island forms</text>
+    <text x="650" y="212" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">✓ Original capability enhanced</text>
+    <text x="650" y="228" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">✓ System-wide capability grows</text>
+    <text x="650" y="244" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">✓ New adjacencies open</text>
+    <text x="650" y="260" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">✓ Field complexity increases</text>
+    <text x="650" y="276" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">✓ Cycle restarts with richer materials</text>
+
+    <!-- ── REAL EXAMPLES BAR ── -->
+    <rect x="28" y="360" width="902" height="78" rx="6" fill="#edeae1" stroke="#d8d4cc" stroke-width="1"/>
+    <text x="48" y="382" font-family="'JetBrains Mono',monospace" font-size="9" fill="#5a6a60" font-weight="600" letter-spacing=".3">REAL EXAPTATIONS:</text>
+    <text x="48" y="400" font-family="'Source Serif 4',Georgia,serif" font-size="10.5" fill="#3a3a35" font-style="italic">Haier logistics → healthcare delivery · SINA freesponsibility → 9-country incubation model · Morning Star CLOU → peer knowledge system</text>
+    <text x="48" y="418" font-family="'Source Serif 4',Georgia,serif" font-size="10.5" fill="#3a3a35" font-style="italic">SMS infrastructure → mobile internet · Feathers → flight · Swim bladder → lung · Jaw bones → middle ear ossicles</text>
+    <text x="48" y="436" font-family="'Source Serif 4',Georgia,serif" font-size="10.5" fill="#9a9a90" font-style="italic">Every dissolution is an exaptation opportunity. Every retrospective is an exaptation audit.</text>
+  </svg>
+  <div class="dg-caption">The exaptation circuit: a context shift or retrospective audit reveals latent capabilities that the Signal posture reads. The Confluent audit — What can this do that it was not designed to do? — generates the exaptive leap into a radically new purpose Z, spawning a new Value Island while enriching the original capability. Every dissolution is also an exaptation opportunity.</div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<span class="sec-label">Section IV</span>
+<h2>Bricolage — The Entrepreneurial Mode of the Archipelago</h2>
+
+<p>Claude Lévi-Strauss introduced bricolage to describe the cognitive style of the mythmaker: someone who builds with what is at hand, recombining existing materials in new configurations to address problems as they arise, without waiting for the specialist tool designed precisely for the task. Ted Baker and Reed Nelson brought this concept into organisational theory in 2005 to describe how entrepreneurs in resource-constrained environments create value: not by acquiring the optimal resources for the task but by making do — creatively, persistently, improvisationally — with whatever is available, refusing to be stopped by the absence of what would be ideal.</p>
+
+<p>Bricolage, in its organisational form, is not the same as resourcefulness under poverty. It is a fundamentally different cognitive and practical orientation to the question of what counts as a resource. The bricoleur looks at the pile of materials accumulated through past activities and asks: what could this become? Not: do we have the right tool for this job? The difference is not only practical. It is philosophical. The bricoleur refuses the separation between means and ends that characterises classical rationalist strategy — the notion that you first decide what you want to achieve and then acquire the appropriate means. The bricoleur starts with what exists and discovers what it can become through the act of recombination.</p>
+
+<p>The Archipelago Model is architecturally configured for bricolage. When a Value Island dissolves, its materials — the relationships it built, the processes it developed, the knowledge it generated, the trust it accumulated, the capabilities it discovered — do not disappear. They return to the commons, available as raw material for the next Value Island's formation. The retrospective framing that closes the island is specifically designed to make these materials legible: to transform the experiential residue of dissolved activity into resources explicitly available for creative recombination. The Archipelago's commons is not a stockroom. It is a bricolage workspace: a space full of materials with known histories and unknown futures, waiting to be combined in ways their original users did not anticipate.</p>
+
+<!-- DIAGRAM 3: BRICOLAGE COMMONS -->
+<div class="dg">
+  <div class="dg-title">Diagram III — The Bricolage Commons: Residue of Dissolution as Raw Material for Formation</div>
+  <svg viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+    <defs>
+      <radialGradient id="bcG" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#1a1a18" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#1a1a18" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="bcF"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0d2a1a" flood-opacity=".11"/></filter>
+      <marker id="bcT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#1e6870" opacity=".70"/>
+      </marker>
+      <marker id="bcA" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#b85a10" opacity=".70"/>
+      </marker>
+      <marker id="bcGr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#9a9a90" opacity=".55"/>
+      </marker>
+    </defs>
+
+    <rect width="960" height="480" fill="#f4f1eb" rx="5"/>
+
+    <!-- ══ CENTRAL BRICOLAGE COMMONS ══ -->
+    <ellipse cx="480" cy="248" rx="200" ry="128" fill="url(#bcG)" filter="url(#bcF)"/>
+    <ellipse cx="480" cy="248" rx="186" ry="116" fill="white" fill-opacity=".55" stroke="#1a1a18" stroke-width="2" stroke-dasharray="8,4"/>
+    <!-- inner label ring -->
+    <text x="480" y="228" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a1a18" letter-spacing=".6">THE BRICOLAGE COMMONS</text>
+    <text x="480" y="248" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="13" fill="#3a3a35" font-style="italic">residue of dissolution</text>
+    <text x="480" y="266" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="13" fill="#3a3a35" font-style="italic">awaiting recombination</text>
+
+    <!-- Material tokens inside commons — larger, better spaced -->
+    <!-- trust capital -->
+    <circle cx="394" cy="256" r="28" fill="#e6f2f3" stroke="#1e6870" stroke-width="1.5" filter="url(#bcF)"/>
+    <text x="394" y="252" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1e6870">trust</text>
+    <text x="394" y="265" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1e6870">capital</text>
+
+    <!-- skills maps -->
+    <circle cx="480" cy="192" r="28" fill="#fdf2ea" stroke="#b85a10" stroke-width="1.5" filter="url(#bcF)"/>
+    <text x="480" y="188" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10">skills</text>
+    <text x="480" y="201" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10">maps</text>
+
+    <!-- process patterns -->
+    <circle cx="566" cy="256" r="28" fill="#e8f4ec" stroke="#1a6030" stroke-width="1.5" filter="url(#bcF)"/>
+    <text x="566" y="252" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1a6030">process</text>
+    <text x="566" y="265" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1a6030">patterns</text>
+
+    <!-- stories -->
+    <circle cx="434" cy="300" r="24" fill="#f0ecfb" stroke="#6040a0" stroke-width="1.5" filter="url(#bcF)"/>
+    <text x="434" y="304" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#6040a0">stories</text>
+
+    <!-- contacts -->
+    <circle cx="526" cy="300" r="24" fill="#fdf2ea" stroke="#b85a10" stroke-width="1.5" filter="url(#bcF)"/>
+    <text x="526" y="304" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10">contacts</text>
+
+    <!-- ══ DISSOLVING ISLANDS — top, feeding commons ══ -->
+    <!-- Island E -->
+    <rect x="48" y="28" width="178" height="88" rx="6" fill="white" fill-opacity=".68" stroke="#9a9a90" stroke-width="1.5" stroke-dasharray="5,4" filter="url(#bcF)"/>
+    <text x="137" y="55" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="14" fill="#5a6a60" font-style="italic" opacity=".75">Island E</text>
+    <text x="137" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">product dev · 8wk</text>
+    <text x="137" y="86" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">dissolving</text>
+    <!-- Dissolve particle dots -->
+    <circle cx="90" cy="106" r="3" fill="#9a9a90" opacity=".4"/>
+    <circle cx="110" cy="112" r="3" fill="#9a9a90" opacity=".35"/>
+    <circle cx="130" cy="106" r="3" fill="#9a9a90" opacity=".3"/>
+    <path d="M 172,80 C 240,120 320,168 368,232" fill="none" stroke="#9a9a90" stroke-width="1.5" stroke-dasharray="4,5" marker-end="url(#bcGr)" opacity=".50"/>
+    <text x="238" y="158" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80" transform="rotate(-38,238,158)">releases materials →</text>
+
+    <!-- Island / Confluence G -->
+    <rect x="730" y="28" width="200" height="88" rx="6" fill="white" fill-opacity=".68" stroke="#9a9a90" stroke-width="1.5" stroke-dasharray="5,4" filter="url(#bcF)"/>
+    <text x="830" y="55" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="14" fill="#5a6a60" font-style="italic" opacity=".75">Confluence G</text>
+    <text x="830" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">multi-island · done</text>
+    <text x="830" y="86" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">retrospective complete</text>
+    <path d="M 730,80 C 660,120 600,165 592,228" fill="none" stroke="#9a9a90" stroke-width="1.5" stroke-dasharray="4,5" marker-end="url(#bcGr)" opacity=".50"/>
+    <text x="688" y="155" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80" transform="rotate(38,688,155)">→ releases materials</text>
+
+    <!-- ══ FORMING ISLANDS — bottom, drawing from commons ══ -->
+    <!-- Island H — conventional recombination -->
+    <rect x="48" y="368" width="210" height="88" rx="6" fill="white" fill-opacity=".72" stroke="#1e6870" stroke-width="2" filter="url(#bcF)"/>
+    <rect x="48" y="368" width="210" height="6" rx="3" fill="#1e6870" opacity=".70"/>
+    <text x="153" y="393" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="14" fill="#1e6870" font-style="italic" font-weight="700">Island H forming</text>
+    <text x="153" y="410" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3a3a35">draws on: trust capital</text>
+    <text x="153" y="424" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3a3a35">+ process patterns</text>
+    <text x="153" y="440" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#5a6a60">recombined · new purpose</text>
+    <path d="M 368,278 C 290,310 230,345 258,368" fill="none" stroke="#1e6870" stroke-width="2" marker-end="url(#bcT)" opacity=".55"/>
+
+    <!-- Island J — exaptive leap -->
+    <rect x="700" y="368" width="220" height="88" rx="6" fill="white" fill-opacity=".72" stroke="#b85a10" stroke-width="2" filter="url(#bcF)"/>
+    <rect x="700" y="368" width="220" height="6" rx="3" fill="#b85a10" opacity=".70"/>
+    <text x="810" y="393" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="14" fill="#b85a10" font-style="italic" font-weight="700">Island J — exaptive</text>
+    <text x="810" y="410" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3a3a35">draws on: skills maps</text>
+    <text x="810" y="424" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#3a3a35">+ stories + contacts</text>
+    <text x="810" y="440" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#b85a10">radical new context Z</text>
+    <path d="M 592,278 C 650,310 700,345 700,368" fill="none" stroke="#b85a10" stroke-width="2" marker-end="url(#bcA)" opacity=".55"/>
+
+    <!-- Bricoleur's question — bottom note -->
+    <text x="480" y="466" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11" fill="#8a8a80" font-style="italic">The bricoleur's question: not "do we have the right tool?" but "what can these materials become?"</text>
+  </svg>
+  <div class="dg-caption">The Bricolage Commons: dissolved islands release trust capital, skills maps, process patterns, stories, and contacts back into a shared workspace. Forming islands draw selectively on this material and recombine it for new purposes — producing both conventional formations (H) and exaptive leaps (J, deploying materials in a radically different context). This is the mechanism by which the Archipelago gets more capable with each cycle of formation and dissolution.</div>
+</div>
+
+<div class="pq-green"><p>"The question is never what resources do we need to do this well. It is what can the resources we have become, in the hands of people who refuse to be stopped by the absence of what would be ideal."</p><span class="pq-cite">Baker & Nelson, 2005 · Social Bricolage · Di Domenico, Haugh & Tracey, 2010</span></div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- PART 3 -->
+<!-- ══════════════════════════════════ -->
+
+<div class="part">
+  <div class="part-bar"></div>
+  <div>
+    <span class="part-label">Part Three</span>
+    <div class="part-title">The Five Fluid Leadership Postures — Role as Weather, Not Position</div>
+    <div class="part-sub">In a permanently fluid organisation, leadership cannot be a position. It must be a temporary atmospheric orientation — inhabited fully when the situation demands, released completely when it does not.</div>
+  </div>
+</div>
+
+<span class="sec-label">Section V</span>
+<h2>Postures, Not Roles — The Architecture of Fluid Authority</h2>
+
+<p>The Archipelago Model abolishes the concept of fixed positional leadership entirely. Not partially — the way Holacracy replaces individual leaders with role-based authority and still produces a new kind of positional ownership. Not nominally — the way "servant leadership" rhetoric keeps the hierarchy while inverting its moral logic. But structurally, completely, and with the full architectural consequence that flows from doing so seriously.</p>
+
+<p>In its place, five <strong>fluid leadership postures</strong>: communicative orientations that any person can inhabit, that multiple people can inhabit simultaneously in different domains, and that any person may move between as context demands. A posture is inhabited when the situation calls for it and released when the situation changes. The person who anchors the system during a crisis may become a scout the following week, a forge the week after, and remain invisible as a bridge throughout — simultaneously inhabiting the scout and bridge postures in different activity streams. Posture fluency — the capacity to move between these orientations without identity anxiety — is the primary leadership competency of the Archipelago.</p>
+
+<!-- DIAGRAM 4: POSTURE TRANSITIONS -->
+<div class="dg">
+  <div class="dg-title">Diagram IV — Fluid Posture Transitions: One Person, Five Orientations Across Time</div>
+  <svg viewBox="0 0 960 440" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+    <defs>
+      <filter id="ptF"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0d2a1a" flood-opacity=".10"/></filter>
+    </defs>
+
+    <rect width="960" height="440" fill="#f4f1eb" rx="5"/>
+
+    <!-- Header -->
+    <text x="480" y="30" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="15" fill="#3a3a35" font-style="italic">One person · five postures · five weeks</text>
+    <text x="480" y="50" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">Bridge is nearly always present · Anchor and Scout alternate · Forge concentrates · Signal pulses</text>
+
+    <!-- ── Y-AXIS POSTURE LABELS ── -->
+    <!-- Anchor -->
+    <text x="62" y="96" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1e6870" font-weight="600">錨 ANCHOR</text>
+    <!-- Scout -->
+    <text x="62" y="158" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a6030" font-weight="600">探 SCOUT</text>
+    <!-- Forge -->
+    <text x="62" y="220" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10" fill="#b85a10" font-weight="600">爐 FORGE</text>
+    <!-- Bridge -->
+    <text x="62" y="282" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10" fill="#2a4a8a" font-weight="600">橋 BRIDGE</text>
+    <!-- Signal -->
+    <text x="62" y="344" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10" fill="#6040a0" font-weight="600">訊 SIGNAL</text>
+
+    <!-- Row separators -->
+    <line x1="72" y1="110" x2="940" y2="110" stroke="#d8d4cc" stroke-width="0.8" stroke-opacity=".5"/>
+    <line x1="72" y1="172" x2="940" y2="172" stroke="#d8d4cc" stroke-width="0.8" stroke-opacity=".5"/>
+    <line x1="72" y1="234" x2="940" y2="234" stroke="#d8d4cc" stroke-width="0.8" stroke-opacity=".5"/>
+    <line x1="72" y1="296" x2="940" y2="296" stroke="#d8d4cc" stroke-width="0.8" stroke-opacity=".5"/>
+    <line x1="72" y1="358" x2="940" y2="358" stroke="#d8d4cc" stroke-width="0.8" stroke-opacity=".5"/>
+
+    <!-- Week tick marks on time axis -->
+    <line x1="72" y1="370" x2="940" y2="370" stroke="#d8d4cc" stroke-width="1.5"/>
+    <text x="72" y="390" text-anchor="start" font-family="'JetBrains Mono',monospace" font-size="9" fill="#9a9a90">Wk 1</text>
+    <text x="246" y="390" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#9a9a90">Wk 2</text>
+    <text x="420" y="390" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#9a9a90">Wk 3</text>
+    <text x="594" y="390" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#9a9a90">Wk 4</text>
+    <text x="768" y="390" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#9a9a90">Wk 5</text>
+    <!-- Vertical week lines -->
+    <line x1="246" y1="68" x2="246" y2="370" stroke="#d8d4cc" stroke-width="0.8" stroke-dasharray="4,4" opacity=".5"/>
+    <line x1="420" y1="68" x2="420" y2="370" stroke="#d8d4cc" stroke-width="0.8" stroke-dasharray="4,4" opacity=".5"/>
+    <line x1="594" y1="68" x2="594" y2="370" stroke="#d8d4cc" stroke-width="0.8" stroke-dasharray="4,4" opacity=".5"/>
+    <line x1="768" y1="68" x2="768" y2="370" stroke="#d8d4cc" stroke-width="0.8" stroke-dasharray="4,4" opacity=".5"/>
+
+    <!-- ── ANCHOR BARS ── -->
+    <rect x="75" y="74" width="185" height="34" rx="5" fill="#1e6870" fill-opacity=".88" filter="url(#ptF)"/>
+    <text x="167" y="96" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="white">Deadstop framing</text>
+    <rect x="668" y="74" width="115" height="34" rx="5" fill="#1e6870" fill-opacity=".65" filter="url(#ptF)"/>
+    <text x="725" y="96" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="white">Concurrent frame</text>
+
+    <!-- ── SCOUT BARS ── -->
+    <rect x="272" y="136" width="200" height="34" rx="5" fill="#1a6030" fill-opacity=".85" filter="url(#ptF)"/>
+    <text x="372" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="white">Search for new future</text>
+    <rect x="794" y="136" width="136" height="34" rx="5" fill="#1a6030" fill-opacity=".58" filter="url(#ptF)"/>
+    <text x="862" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="white">Exaptive scout</text>
+
+    <!-- ── FORGE BAR ── -->
+    <rect x="472" y="198" width="175" height="34" rx="5" fill="#b85a10" fill-opacity=".88" filter="url(#ptF)"/>
+    <text x="559" y="220" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="white">Implementation lead</text>
+
+    <!-- ── BRIDGE BAR — continuous, thin ── -->
+    <rect x="75" y="264" width="855" height="24" rx="5" fill="#2a4a8a" fill-opacity=".22" stroke="#2a4a8a" stroke-width="1"/>
+    <text x="480" y="281" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#2a4a8a">continuous connecting · system overview maintained throughout all five weeks</text>
+
+    <!-- ── SIGNAL PULSES — sparse ── -->
+    <rect x="192" y="323" width="46" height="30" rx="4" fill="#6040a0" fill-opacity=".80" filter="url(#ptF)"/>
+    <text x="215" y="342" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="white">pulse</text>
+    <rect x="508" y="323" width="46" height="30" rx="4" fill="#6040a0" fill-opacity=".80" filter="url(#ptF)"/>
+    <text x="531" y="342" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="white">pulse</text>
+    <rect x="836" y="323" width="68" height="30" rx="4" fill="#6040a0" fill-opacity=".95" filter="url(#ptF)"/>
+    <text x="870" y="342" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="white">alert !</text>
+
+    <!-- TIME arrow label -->
+    <text x="480" y="410" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#9a9a90" letter-spacing=".6">← TIME →</text>
+    <text x="480" y="428" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="10" fill="#9a9a90" font-style="italic">No fixed role. No positional identity. The posture that the situation requires — inhabited fully, released cleanly.</text>
+  </svg>
+  <div class="dg-caption">A single person's posture trajectory across five weeks: anchoring during the Deadstop, scouting in the search phase, forging during implementation, bridging continuously throughout, and signalling in brief focused pulses. No fixed role. No positional identity. The posture that the situation requires — inhabited fully, released cleanly.</div>
+</div>
+
+<span class="sec-label">The Five Postures in Full</span>
+
+<div class="posture-grid">
+  <div class="posture-card">
+    <span class="posture-han">錨</span>
+    <div class="posture-name">The Anchor</div>
+    <span class="posture-mode">Posture I · Framing · Integration under threat</span>
+    <div class="posture-body">Creates shared meaning at moments of existential disruption or radical directional ambiguity. The Anchor does not command — they frame. They read the atmospheric charge of a situation, translate it into a narrative that imbues it with meaning, and hold that frame steady long enough for others to orient around it without using the frame as a constraint on their response. At Deadstop moments — when existing plans are rendered obsolete and the organisation must reconstitute its sense of direction before it can act — the Anchor is the most critical posture in the system. When The Borderland's leadership team crafted the Plan A/Plan B announcement under extreme time pressure, losing their confirmed site six weeks before the event, they were performing the Anchor posture at its fullest: creating a frame precise enough to orient 2,500 people across multiple digital platforms without prescribing their response.</div>
+    <div class="posture-exaptive">Exaptive capacity: Anchors who have navigated one type of Deadstop (funding collapse) often discover their framing skills directly applicable to completely different crises (reputational damage, technology failure). The posture transfers across domains.</div>
+    <div class="posture-shadow">Shadow risk: Framing becomes prescription. The Anchor mistakes their map for the territory and begins to manage the response rather than orient it. Gift: the held frame is what makes fragmented co-creation coherent rather than merely energetic.</div>
+  </div>
+  <div class="posture-card">
+    <span class="posture-han">探</span>
+    <div class="posture-name">The Scout</div>
+    <span class="posture-mode">Posture II · Co-Creating · Productive fragmentation</span>
+    <div class="posture-body">Pursues possibilities with autonomous agency and full accountability for outcomes. The Scout is the Archipelago's primary entrepreneurial engine — the free agent who, given a clear frame and a shared direction, needs no further instruction to begin building. Scouts form temporary coalitions, independently explore options, report back on public platforms, and calibrate their efforts against the evolving landscape of other Scouts' activity. SINA's freesponsibility model produces Scout behaviour at scale: 120+ social enterprises built by young people who were given the frame (create a sustainable enterprise that serves your community) and no further instruction. Five independent Borderland scouting teams found six potential festival sites in ten days, operating in complete autonomy under a shared frame. This is Scout posture at peak performance: productive fragmentation, maximum option generation, zero managerial direction.</div>
+    <div class="posture-exaptive">Exaptive capacity: Scouts operating in one domain build pattern recognition that transfers to others. The Scout who navigated permit applications for an event site discovers their stakeholder-mapping skills are precisely what a healthcare navigation challenge needs.</div>
+    <div class="posture-shadow">Shadow risk: Parallel exploration without connecting produces duplication and occasionally conflict. Gift: the option space is richer than any single directing mind could generate — and the richest option often emerges from the least expected Scout.</div>
+  </div>
+  <div class="posture-card">
+    <span class="posture-han">爐</span>
+    <div class="posture-name">The Forge</div>
+    <span class="posture-mode">Posture III · Co-Creating · Realisation and execution</span>
+    <div class="posture-body">Brings deep contextual expertise and technical mastery to the realisation of specific outcomes. Where the Scout is generative and exploratory, the Forge is precise and executory — the person who takes the chosen option from the Scout phase and drives it to completion with full technical accountability. Morning Star's colleagues, who negotiate CLOUs specifying their activity commitments with surgical precision, perform the Forge posture continuously: their authority is entirely competence-based, and their accountability is directly to the colleagues affected by their work. The Forge's most important characteristic is not technical skill alone but the willingness to step up — the organisational norm of assuming responsibility voluntarily, without waiting for assignment. "Stepping up" is the cultural expression of Forge posture at scale.</div>
+    <div class="posture-exaptive">Exaptive capacity: The Forge who has realised a complex logistical challenge often contains latent facilitation capability that only emerges when they are placed in a Confluence Island context. The craft of implementation, made legible, becomes a template for others.</div>
+    <div class="posture-shadow">Shadow risk: deep expertise creates attachment to particular solutions; the Forge may resist connecting practices that challenge their assumptions. Gift: without Forges, the organisation generates possibilities it cannot realise — creative energy without structural consequence.</div>
+  </div>
+  <div class="posture-card">
+    <span class="posture-han">橋</span>
+    <div class="posture-name">The Bridge</div>
+    <span class="posture-mode">Posture IV · Connecting · Systemic coherence</span>
+    <div class="posture-body">Maintains a high-level overview of the whole system in motion and creates the targeted information flows that prevent fragmented activities from drifting into incoherence, redundancy, or destructive competition. The Bridge is the spider-in-the-web — moving through many conversations without being captured by any, listening in, relaying information, drawing the right people into contact with each other. McChrystal's shared consciousness architecture at JSOC — the cross-team liaison officers, the twice-daily O&I briefings, the transparent information architecture — is a systematic institutionalisation of Bridge posture at military scale. Bridge activity is the most structurally undervalued posture in every existing organisational model because it produces no direct attributable output. The Archipelago makes it structurally visible, protected, and explicitly acknowledged — because without it, every other posture operates in isolation.</div>
+    <div class="posture-exaptive">Exaptive capacity: Bridges build the most transferable capability in the system — systemic pattern recognition that reads across domains. The Bridge who connects activity streams in a product context transfers their overview capability directly to any complex coordination challenge.</div>
+    <div class="posture-shadow">Shadow risk: Bridges are the first to be rationalised out in efficiency drives because their contribution is invisible until it disappears, at which point the system fractures. Gift: they are the connective tissue — without them, the Archipelago becomes a scatter of brilliant but disconnected activities.</div>
+  </div>
+  <div class="posture-card">
+    <span class="posture-han">訊</span>
+    <div class="posture-name">The Signal</div>
+    <span class="posture-mode">Posture V · All three · Anticipatory intelligence</span>
+    <div class="posture-body">The rarest and most precious posture: the individual who perceives disruptions before they become crises, names what the organisation cannot yet say, and holds the possibility of a different future with enough conviction to pull others toward it. The Signal combines framing (naming the anomaly), co-creating (proposing the alternative), and connecting (drawing together the threads that reveal the pattern). Critically, the Signal performs the exaptation radar function: scanning the organisation's existing capability landscape for adjacencies and radical repurposing possibilities that others cannot yet see. The Signal operates at a time-horizon mismatch with the operational present — always a little ahead of where the system is, slightly uncomfortable with where it is complacent. This makes Signals lonely in any organisation. The Archipelago makes their role explicit, their contribution valued, and their departure a recognised loss — rather than treating their discomfort as a management problem.</div>
+    <div class="posture-exaptive">Exaptive capacity: Signals are the primary exaptation engine of the system — the posture most likely to perceive that a capability built for context A is the exact answer needed in context Z. Their pattern-recognition across domains is the Archipelago's most powerful competitive advantage.</div>
+    <div class="posture-shadow">Shadow risk: time-horizon mismatch produces isolation and premature departure. The Signal who cannot be heard leaves. Gift: the Archipelago that loses its Signals has lost contact with its own future — and with its most powerful exaptive capacity.</div>
+  </div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- PART 4 -->
+<!-- ══════════════════════════════════ -->
+
+<div class="part">
+  <div class="part-bar"></div>
+  <div>
+    <span class="part-label">Part Four</span>
+    <div class="part-title">The Four Disruption Modes — From Crisis Protocols to Operational Weather</div>
+    <div class="part-sub">The organisation that treats disruption as an exceptional event requiring special protocols will always be slower than the disruption. The Archipelago treats disruption as the normal condition — and designs for it accordingly.</div>
+  </div>
+</div>
+
+<span class="sec-label">Section VI</span>
+<h2>Disruption as Climate — Four Modes of Productive Instability</h2>
+
+<p>Stingl and McClellan's empirical analysis of The Borderland crisis — ten disruption episodes in six weeks, navigated by a self-organising community without formal hierarchy — identified four distinct disruption types that the Archipelago Model treats not as exceptional events but as the normal range of atmospheric variation. Every mature Archipelago organisation operates in all four modes simultaneously, in different islands, at different intensities. The capacity to navigate all four without losing coherence is the measure of organisational health.</p>
+
+<!-- DIAGRAM 5: DISRUPTION MODES AS OPERATIONAL CONDITIONS -->
+<div class="dg">
+  <div class="dg-title">Diagram V — The Four Disruption Modes: From Existential Crisis to Creative Tension</div>
+  <svg viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+    <defs>
+      <linearGradient id="dmT" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".20"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="dmG" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1a6030" stop-opacity=".20"/>
+        <stop offset="100%" stop-color="#1a6030" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="dmA" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#b85a10" stop-opacity=".20"/>
+        <stop offset="100%" stop-color="#b85a10" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="dmP" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#6040a0" stop-opacity=".20"/>
+        <stop offset="100%" stop-color="#6040a0" stop-opacity=".05"/>
+      </linearGradient>
+      <filter id="dmF"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0d2a1a" flood-opacity=".11"/></filter>
+    </defs>
+
+    <rect width="960" height="560" fill="#f4f1eb" rx="5"/>
+
+    <!-- ── AXES ── -->
+    <line x1="80" y1="510" x2="80" y2="36" stroke="#d8d4cc" stroke-width="1.5"/>
+    <line x1="80" y1="510" x2="940" y2="510" stroke="#d8d4cc" stroke-width="1.5"/>
+    <!-- Y axis label -->
+    <text x="26" y="278" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#9a9a90" transform="rotate(-90,26,278)">SEVERITY OF DISRUPTION →</text>
+    <!-- X axis label -->
+    <text x="510" y="536" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#9a9a90">FREQUENCY / REGULARITY →</text>
+    <!-- Axis ticks -->
+    <text x="80" y="54" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#d8d4cc">HIGH</text>
+    <text x="80" y="510" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#d8d4cc">LOW</text>
+    <text x="84" y="510" font-family="'JetBrains Mono',monospace" font-size="8" fill="#d8d4cc">RARE</text>
+    <text x="890" y="526" font-family="'JetBrains Mono',monospace" font-size="8" fill="#d8d4cc">FREQUENT</text>
+
+    <!-- Quadrant ghost labels -->
+    <text x="222" y="58" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#e0dcd4">RARE / SEVERE</text>
+    <text x="726" y="58" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#e0dcd4">FREQUENT / SEVERE</text>
+    <text x="222" y="500" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#e0dcd4">RARE / MILD</text>
+    <text x="726" y="500" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#e0dcd4">FREQUENT / MILD</text>
+    <!-- Cross hair -->
+    <line x1="510" y1="36" x2="510" y2="510" stroke="#d8d4cc" stroke-width="0.8" stroke-dasharray="5,5" opacity=".5"/>
+    <line x1="80" y1="273" x2="940" y2="273" stroke="#d8d4cc" stroke-width="0.8" stroke-dasharray="5,5" opacity=".5"/>
+
+    <!-- ══ MODE I: DEADSTOP — top-left ══ -->
+    <rect x="96" y="50" width="398" height="210" rx="7" fill="url(#dmT)" stroke="#1e6870" stroke-width="2.2" filter="url(#dmF)"/>
+    <rect x="96" y="50" width="398" height="8" rx="4" fill="#1e6870" opacity=".85"/>
+    <text x="295" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#1e6870" letter-spacing=".5">MODE I · DEADSTOP</text>
+    <text x="295" y="104" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="19" fill="#1a1a18" font-weight="700">Existential Threat</text>
+    <text x="295" y="124" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">Existing plans rendered obsolete</text>
+    <text x="295" y="140" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">by a singular sudden event</text>
+    <text x="110" y="162" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Anchor posture activates fast</text>
+    <text x="110" y="178" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Integration before fragmentation</text>
+    <text x="110" y="194" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Small group frames → publishes</text>
+    <text x="110" y="210" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Plan A / Plan B boundary set</text>
+    <text x="110" y="230" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">Exaptive potential: high — forces creative repurposing</text>
+    <text x="110" y="248" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">of everything the system has available</text>
+
+    <!-- ══ MODE II: SEARCH — top-right ══ -->
+    <rect x="516" y="50" width="418" height="210" rx="7" fill="url(#dmG)" stroke="#1a6030" stroke-width="2.2" filter="url(#dmF)"/>
+    <rect x="516" y="50" width="418" height="8" rx="4" fill="#1a6030" opacity=".85"/>
+    <text x="725" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#1a6030" letter-spacing=".5">MODE II · SEARCH</text>
+    <text x="725" y="104" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="19" fill="#1a1a18" font-weight="700">Attractor Space Open</text>
+    <text x="725" y="124" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">Old future gone · new one</text>
+    <text x="725" y="140" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">must be found in possibility space</text>
+    <text x="530" y="162" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Scout postures proliferate immediately</text>
+    <text x="530" y="178" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Maximum fragmentation · maximum options</text>
+    <text x="530" y="194" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Bridge structures the proliferating data</text>
+    <text x="530" y="210" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Best option emerges via transparent competition</text>
+    <text x="530" y="230" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">Exaptive potential: maximum — Search mode</text>
+    <text x="530" y="248" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">is the system's primary exaptation engine</text>
+
+    <!-- ══ MODE III: CHANGING — bottom-right ══ -->
+    <rect x="516" y="284" width="418" height="210" rx="7" fill="url(#dmA)" stroke="#b85a10" stroke-width="2.2" filter="url(#dmF)"/>
+    <rect x="516" y="284" width="418" height="8" rx="4" fill="#b85a10" opacity=".85"/>
+    <text x="725" y="312" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#b85a10" letter-spacing=".5">MODE III · CHANGING</text>
+    <text x="725" y="338" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="19" fill="#1a1a18" font-weight="700">Continuous Refinement</text>
+    <text x="725" y="358" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">Evolving conditions · constant</text>
+    <text x="725" y="374" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">recalibration of plans and actions</text>
+    <text x="530" y="396" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Forge dominates execution</text>
+    <text x="530" y="412" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Bridge maintains systemic coherence</text>
+    <text x="530" y="428" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ High fragmentation · high connectivity</text>
+    <text x="530" y="448" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">Bricolage at its most natural here —</text>
+    <text x="530" y="464" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">making do as conditions continuously shift</text>
+
+    <!-- ══ MODE IV: CONCURRENT — bottom-left ══ -->
+    <rect x="96" y="284" width="398" height="210" rx="7" fill="url(#dmP)" stroke="#6040a0" stroke-width="2.2" filter="url(#dmF)"/>
+    <rect x="96" y="284" width="398" height="8" rx="4" fill="#6040a0" opacity=".85"/>
+    <text x="295" y="312" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#6040a0" letter-spacing=".5">MODE IV · CONCURRENT</text>
+    <text x="295" y="338" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="19" fill="#1a1a18" font-weight="700">Competing Futures</text>
+    <text x="295" y="358" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">Multiple incompatible visions</text>
+    <text x="295" y="374" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11.5" fill="#5a6a60" font-style="italic">of the desired future co-exist</text>
+    <text x="110" y="396" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Signal names the divergence explicitly</text>
+    <text x="110" y="412" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Bridge makes each frame visible to others</text>
+    <text x="110" y="428" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#3a3a35">→ Horizon Island attempts meta-framing</text>
+    <text x="110" y="448" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">Most dangerous when unacknowledged —</text>
+    <text x="110" y="464" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8a8a80">can dissolve the organisation silently over years</text>
+  </svg>
+  <div class="dg-caption">The four disruption modes mapped by severity and frequency. The Archipelago organisation does not wait for disruption to arrive — it operates in all four modes simultaneously across different islands. The Deadstop is rare but intense; the Search is frequent and energetic; the Changing is constant background weather; the Concurrent is the most dangerous because it is hardest to see. The Signal's primary function is to make Mode IV visible before it becomes irreversible.</div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- PART 5 -->
+<!-- ══════════════════════════════════ -->
+
+<div class="part">
+  <div class="part-bar"></div>
+  <div>
+    <span class="part-label">Part Five</span>
+    <div class="part-title">The Structural Design — Building an Organisation That Will Not Stand Still</div>
+    <div class="part-sub">Five layers of architecture, three communicative currents, and one radical constitutional premise: the organisation exists to remain in perpetual productive becoming, not to achieve a stable form.</div>
+  </div>
+</div>
+
+<span class="sec-label">Section VII</span>
+<h2>The Three Communicative Currents — How the Sea Moves</h2>
+
+<p>The Archipelago's operational architecture rests on three communicative practices identified by Stingl and McClellan across ten disruption episodes: <strong>framing</strong>, <strong>co-creating</strong>, and <strong>connecting</strong>. These are not techniques — they are orientations that constitute organisation in the moment of their enactment. Together, they form an autocatalytic cycle: framing creates the shared understanding that enables co-creating; co-creating generates the activities that make connecting necessary; connecting maintains the coherence that makes the next round of framing meaningful. The cycle is self-sustaining — and it is also perpetually disruptive, because each cycle of framing reconstitutes the organisation's understanding of itself and what it is for.</p>
+
+<!-- DIAGRAM 6: COMMUNICATIVE CURRENTS - FULL CYCLE -->
+<div class="dg">
+  <div class="dg-title">Diagram VI — The Communicative Currents: Autocatalytic Cycle of Organisational Becoming</div>
+  <svg viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+    <defs>
+      <radialGradient id="iocG" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".28"/>
+        <stop offset="65%" stop-color="#1e6870" stop-opacity=".09"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="ccT" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1e6870" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#1e6870" stop-opacity=".06"/>
+      </linearGradient>
+      <linearGradient id="ccG" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1a6030" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#1a6030" stop-opacity=".06"/>
+      </linearGradient>
+      <linearGradient id="ccA" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#b85a10" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#b85a10" stop-opacity=".06"/>
+      </linearGradient>
+      <filter id="ccF"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0d2a1a" flood-opacity=".11"/></filter>
+      <marker id="ccMT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#1e6870" opacity=".80"/>
+      </marker>
+      <marker id="ccMG" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#1a6030" opacity=".80"/>
+      </marker>
+      <marker id="ccMA" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+        <path d="M0,0 L10,4 L0,8 Z" fill="#b85a10" opacity=".80"/>
+      </marker>
+    </defs>
+
+    <rect width="960" height="480" fill="#f4f1eb" rx="5"/>
+
+    <!-- ══ FRAMING — left box ══ -->
+    <rect x="28" y="128" width="248" height="178" rx="8" fill="url(#ccT)" stroke="#1e6870" stroke-width="2.5" filter="url(#ccF)"/>
+    <rect x="28" y="128" width="248" height="9" rx="5" fill="#1e6870" opacity=".85"/>
+    <text x="152" y="156" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1e6870" letter-spacing=".6">FRAMING</text>
+    <text x="152" y="180" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="15" fill="#1a1a18" font-weight="600" font-style="italic">Shared meaning</text>
+    <text x="152" y="198" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11" fill="#5a6a60">of situation · direction</text>
+    <text x="152" y="214" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11" fill="#5a6a60">context · what matters</text>
+    <!-- Posture badges -->
+    <rect x="44" y="232" width="96" height="22" rx="4" fill="#1e6870" fill-opacity=".15" stroke="#1e6870" stroke-width="1"/>
+    <text x="92" y="247" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1e6870">錨 Anchor</text>
+    <rect x="150" y="232" width="112" height="22" rx="4" fill="#6040a0" fill-opacity=".12" stroke="#6040a0" stroke-width="1"/>
+    <text x="206" y="247" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6040a0">訊 Signal</text>
+    <text x="152" y="278" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80">Gatekeepers · Tribe leaders</text>
+    <text x="152" y="294" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80">Horizon Island frames climate</text>
+
+    <!-- ══ CO-CREATING — right box ══ -->
+    <rect x="684" y="128" width="248" height="178" rx="8" fill="url(#ccG)" stroke="#1a6030" stroke-width="2.5" filter="url(#ccF)"/>
+    <rect x="684" y="128" width="248" height="9" rx="5" fill="#1a6030" opacity=".85"/>
+    <text x="808" y="156" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a6030" letter-spacing=".6">CO-CREATING</text>
+    <text x="808" y="180" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="15" fill="#1a1a18" font-weight="600" font-style="italic">Productive action</text>
+    <text x="808" y="198" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11" fill="#5a6a60">fragmented pockets</text>
+    <text x="808" y="214" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11" fill="#5a6a60">of purposeful divergence</text>
+    <rect x="698" y="232" width="96" height="22" rx="4" fill="#1a6030" fill-opacity=".15" stroke="#1a6030" stroke-width="1"/>
+    <text x="746" y="247" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a6030">探 Scout</text>
+    <rect x="806" y="232" width="112" height="22" rx="4" fill="#b85a10" fill-opacity=".12" stroke="#b85a10" stroke-width="1"/>
+    <text x="862" y="247" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#b85a10">爐 Forge</text>
+    <text x="808" y="278" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80">Free agents · Doers · Bricoleurs</text>
+    <text x="808" y="294" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80">Exaptation happens here</text>
+
+    <!-- ══ CONNECTING — bottom centre box ══ -->
+    <rect x="356" y="348" width="248" height="118" rx="8" fill="url(#ccA)" stroke="#b85a10" stroke-width="2.5" filter="url(#ccF)"/>
+    <rect x="356" y="348" width="248" height="9" rx="5" fill="#b85a10" opacity=".85"/>
+    <text x="480" y="376" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#b85a10" letter-spacing=".6">CONNECTING</text>
+    <text x="480" y="400" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="15" fill="#1a1a18" font-weight="600" font-style="italic">Targeted coherence</text>
+    <text x="480" y="418" text-anchor="middle" font-family="'Source Serif 4',Georgia,serif" font-size="11" fill="#5a6a60">bridges fragmented activities</text>
+    <text x="480" y="436" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#b85a10">橋 Bridge · Spiders · Secretaries</text>
+    <text x="480" y="454" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8a8a80">prevents incoherence · enables next framing</text>
+
+    <!-- ══ ISLAND OF CERTAINTY — centre ══ -->
+    <ellipse cx="480" cy="208" rx="112" ry="64" fill="url(#iocG)" filter="url(#ccF)"/>
+    <ellipse cx="480" cy="208" rx="96" ry="52" fill="none" stroke="#1e6870" stroke-width="1.5" stroke-dasharray="6,5"/>
+    <ellipse cx="480" cy="208" rx="76" ry="40" fill="none" stroke="#1e6870" stroke-width="0.8" stroke-opacity=".3" stroke-dasharray="4,4"/>
+    <text x="480" y="198" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="14" fill="#1e6870" font-weight="700">Island of</text>
+    <text x="480" y="216" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="14" fill="#1e6870" font-weight="700">Certainty</text>
+    <text x="480" y="234" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#5a6a60">ephemeral · orienting</text>
+
+    <!-- ══ CURVED ARROWS — cycle flow ══ -->
+    <!-- Framing → IoC -->
+    <path d="M 278,195 C 330,196 365,200 368,202" fill="none" stroke="#1e6870" stroke-width="2.5" marker-end="url(#ccMT)" opacity=".65"/>
+    <text x="318" y="188" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1e6870" opacity=".75">creates →</text>
+    <!-- IoC → Co-creating -->
+    <path d="M 592,202 C 625,198 658,195 684,192" fill="none" stroke="#1a6030" stroke-width="2.5" marker-end="url(#ccMG)" opacity=".65"/>
+    <text x="628" y="188" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1a6030" opacity=".75">enables →</text>
+    <!-- Co-creating → Connecting -->
+    <path d="M 780,308 C 720,340 638,358 604,362" fill="none" stroke="#b85a10" stroke-width="2.5" marker-end="url(#ccMA)" opacity=".65"/>
+    <text x="716" y="348" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#b85a10" opacity=".75" transform="rotate(20,716,348)">generates →</text>
+    <!-- Connecting → Framing -->
+    <path d="M 356,390 C 290,370 200,330 176,308" fill="none" stroke="#1e6870" stroke-width="2.5" marker-end="url(#ccMT)" opacity=".65"/>
+    <text x="228" y="362" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1e6870" opacity=".75" transform="rotate(-20,228,362)">→ refreshes</text>
+
+    <!-- Recursive outer loop arc -->
+    <path d="M 152,308 C 120,380 200,448 480,448 C 760,448 840,380 808,308" fill="none" stroke="#9a9a90" stroke-width="1" stroke-dasharray="6,6" opacity=".45"/>
+    <text x="480" y="464" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#9a9a90" opacity=".70">recursive self-reference → connecting feeds next framing cycle</text>
+  </svg>
+  <div class="dg-caption">The autocatalytic communicative cycle: Framing creates the Island of Certainty; the Island of Certainty enables Co-creating; Co-creating generates connecting needs; Connecting feeds back into the next round of framing. The cycle is self-sustaining — and each complete cycle reconstitutes the organisation's understanding of itself, making the Archipelago constitutively incapable of structural stasis.</div>
+</div>
+
+<span class="sec-label">Section VIII</span>
+<h2>Five Structural Layers — The Minimum Viable Archipelago</h2>
+
+<div class="layers">
+  <div class="layer">
+    <div class="layer-label">Layer 1<br>Evolutionary Purpose</div>
+    <div>
+      <div class="layer-name">The Living Attractor</div>
+      <div class="layer-body">Not a mission statement — a continuously interpreted understanding of what the system is called to create. The Horizon Island tends this, but every island contributes to its interpretation through the quality of its framing practices. Critically, the purpose statement must be specific enough to orient action and open enough to sustain multiple legitimate interpretations — because an organisation that can only be understood one way has stopped thinking. The purpose is the climate; every island is weather; the relationship between them is what makes both meaningful. Morning Star's Enterprise Mission — enabling people to be the most productive in the accomplishment of their personal and professional objectives — is a masterwork of this balance: specific enough to orient thirty years of self-management, open enough to sustain 3,000 different interpretations of what that means in practice.</div>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="layer-label">Layer 2<br>Island Formation</div>
+    <div>
+      <div class="layer-name">The Formation / Dissolution Protocol</div>
+      <div class="layer-body">Any person or group can propose a Value Island. Proposals require a brief public framing that specifies: the disruption or opportunity being addressed, the desired outcome, the approximate lifespan, the resources needed, and the dissolution protocol — how the island will close and what it will contribute to the Bricolage Commons. The formation framing is public and visible to all. Islands that cannot articulate their dissolution from the start do not form. This is not bureaucratic caution — it is exaptive design: the dissolution protocol forces prospective island founders to think about what they will build that will outlast the island itself, making every formation an exaptation opportunity from its inception.</div>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="layer-label">Layer 3<br>Open Sea Platform</div>
+    <div>
+      <div class="layer-name">The Shared Consciousness Infrastructure</div>
+      <div class="layer-body">Three channel types corresponding to the three currents: Framing channels (where Anchors broadcast situation frames and receive interpretation); Co-creating channels (where Scouts and Forges report progress, post needs, invite collaboration in real time); Connecting channels (where Bridges maintain publicly visible overviews of system-wide activity). The platform's default is maximum transparency — opacity requires deliberate action and explicit justification. Agentic AI operates here as synthetic Bridge activity: monitoring information flows across islands, detecting connections that human Bridges might miss at scale, flagging divergences from purpose that the Signal posture needs to name. The platform is not communication infrastructure bolted onto the organisation. It is the organisation's primary substrate.</div>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="layer-label">Layer 4<br>Posture Recognition</div>
+    <div>
+      <div class="layer-name">Making the Invisible Visible</div>
+      <div class="layer-body">Bridge and Signal work is structurally invisible to conventional performance metrics and systematically at risk of being rationalised out in efficiency drives. The Archipelago creates specific salience mechanisms: monthly posture acknowledgements visible to the whole system; public Bridge maps showing the connecting activity that maintained coherence; retrospective framing that explicitly names how Bridge and Signal contributions shaped outcomes. The principle is not feel-good recognition. It is thermodynamic: what you do not make salient will atrophy. An Archipelago that loses its Bridges loses coherence. An Archipelago that loses its Signals loses its exaptive capacity and its contact with its own future. Both failures are structural, not cultural — they are produced by the absence of salience mechanisms, not by bad intent.</div>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="layer-label">Layer 5<br>Horizon Governance</div>
+    <div>
+      <div class="layer-name">The Constitutional Charter and the Exaptation Register</div>
+      <div class="layer-body">Two documents, both living: the Charter (purpose, island types, postures, communicative principles, and Charter revision process) and the Exaptation Register (a running record of capabilities built in contexts A-N that have been identified as potential resources for contexts X, Y, Z). The Register is the Archipelago's most distinctive governance artefact — a document that exists in no other organisational model because no other model treats exaptation as a primary strategic function. It is maintained by the Horizon Island and enriched by every island retrospective. Over time, it becomes the organisation's most powerful strategic asset: a map of the latent potential accumulated through every past activity, available for creative recombination in service of futures that have not yet been imagined.</div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- PART 6 -->
+<!-- ══════════════════════════════════ -->
+
+<div class="part">
+  <div class="part-bar"></div>
+  <div>
+    <span class="part-label">Part Six</span>
+    <div class="part-title">Sixteen Radical Principles — The Grammar of Productive Instability</div>
+    <div class="part-sub">Not rules. Not guidelines. Orienting frames for an organisation designed to think for itself — and to keep thinking, even when thinking is uncomfortable.</div>
+  </div>
+</div>
+
+<div class="principles">
+  <div class="principle">
+    <div class="p-num">01</div>
+    <div class="p-body"><strong>The organisation that achieves stable form has achieved the primary symptom of death.</strong> Stability is not the goal. Productive becoming is the goal. The Archipelago is designed to remain perpetually in motion — forming, dissolving, exapting, recombining — without this motion being experienced as crisis.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">02</div>
+    <div class="p-body"><strong>Dissolution is as creative as formation.</strong> Every closing of a Value Island is an act of renewal. The retrospective is not administrative closure — it is the primary exaptation event of the island's lifecycle. What was built that can serve radically different purposes? This question is more important than any output metric the island generated during its active phase.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">03</div>
+    <div class="p-body"><strong>Leadership is a posture, not a position.</strong> Any person can inhabit any posture. The person who anchors the system during a crisis is not a leader in a positional sense. They are performing a temporary atmospheric function. The moment that function is complete, the posture is released. Identity is not encoded in the posture. Competence is.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">04</div>
+    <div class="p-body"><strong>Posture fluency is the primary organisational competency.</strong> The capacity to move between Anchor, Scout, Forge, Bridge, and Signal without identity anxiety — to inhabit each fully when the situation demands and release each cleanly when it does not — is more important than any specific domain expertise. Posture fluency is what makes the Archipelago genuinely adaptive rather than just rhetorically committed to adaptation.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">05</div>
+    <div class="p-body"><strong>Exaptation is a primary strategic function, not a byproduct of creativity.</strong> Every island retrospective contains an explicit exaptation audit. The Exaptation Register is a primary governance document. The Signal posture has exaptive scanning as a core function. The Archipelago actively cultivates the capacity to see what its existing capabilities can become — not what they were designed to do.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">06</div>
+    <div class="p-body"><strong>Bricolage is the entrepreneurial mode of the system.</strong> The organisation does not wait for the ideal resources before acting. It acts with what it has, discovering through the act of recombination what those materials can become. The Bricolage Commons is designed specifically to make the residue of past activity legible as raw material for future creation.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">07</div>
+    <div class="p-body"><strong>Fragmentation is productive when direction is shared.</strong> High communicative fragmentation — many parallel activities pursuing different possibilities — is not a coordination failure. It is the system's ordering capacity operating at maximum efficiency. The condition for productive fragmentation is shared prospection: everyone knows where they are going, even when no one is telling everyone else how to get there.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">08</div>
+    <div class="p-body"><strong>Integration and fragmentation are the heartbeat, not a problem to be resolved.</strong> The Deadstop demands integration. The Search demands fragmentation. The Changing demands both simultaneously in different activity streams. The Concurrent demands a meta-level integration of competing frames. The skill is reading which the current moment requires — and the Anchor, Bridge, and Signal postures all contribute to that reading in different ways.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">09</div>
+    <div class="p-body"><strong>Every management layer is a liability until proven otherwise.</strong> Following Haier, Bayer DSO, Morning Star, and the full weight of Humanocracy's empirical case: managerial overhead generates entropy at rates that routinely exceed the ordering work it facilitates. The burden of proof rests with the layer, not with those proposing its removal.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">10</div>
+    <div class="p-body"><strong>Transparency is the condition of connecting, not a value statement.</strong> You cannot bridge what you cannot see. The Open Sea Platform's default of maximum visibility is not a cultural aspiration toward openness. It is the structural prerequisite for Bridge posture to function — and Bridge posture is the mechanism that maintains coherence across the Archipelago's inherent fragmentation.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">11</div>
+    <div class="p-body"><strong>The Bridge and Signal postures are structurally protected.</strong> Both are invisible to conventional performance metrics. Both are the first to be rationalised out in efficiency drives. Both are existentially necessary to the Archipelago's functioning. The salience mechanisms that make their work visible are not optional add-ons — they are core architectural features without which the system loses coherence and loses its future simultaneously.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">12</div>
+    <div class="p-body"><strong>Stepping up is the cultural norm, not exceptional behaviour.</strong> Following Morning Star's thirty years of evidence: self-management does not mean doing whatever you want. It means being part of determining what to do — and then doing it without waiting for permission. The system is designed to make stepping up easy: needs are visible, resources are accessible, posture recognition makes contribution legible.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">13</div>
+    <div class="p-body"><strong>Purpose is the climate, not the weather.</strong> The Evolutionary Purpose Statement is not what the organisation does. It is the persistent, large-scale tendency of the system that gives meaning to all local activity without determining it. Islands are weather — temporary formations that clarify the atmosphere. The purpose is what makes them part of the same system rather than a scatter of unrelated events.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">14</div>
+    <div class="p-body"><strong>Concurrent frames are expected, not pathological.</strong> The Archipelago is designed for an organisation whose members hold genuinely different values-based understandings of its direction. These differences are the source of adaptive intelligence — the raw material from which the Signal posture constructs the next exaptive possibility — provided the communicative practices for making them legible and productive are present and functioning.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">15</div>
+    <div class="p-body"><strong>AI is infrastructure for Bridge posture at scale.</strong> Agentic AI integrated into the Open Sea Platform performs synthetic connecting activity: detecting when two island streams need to speak to each other, monitoring divergence from purpose, amplifying the Signal's pattern recognition across the whole system simultaneously. But the field quality into which AI is embedded determines what it amplifies. AI embedded in a healthy Archipelago field amplifies coherence. AI embedded in a damaged field amplifies the damage.</div>
+  </div>
+  <div class="principle">
+    <div class="p-num">16</div>
+    <div class="p-body"><strong>The system evolves itself, or it is not the system.</strong> The Archipelago modifies its own architecture through the same communicative practices that govern everything else. The Charter is rewritten through framing processes open to the whole system. The Exaptation Register is enriched by every island retrospective. The posture recognition system is redesigned when it stops producing the salience it was built for. The model you start with is not the model you will inhabit. That is not a failure of implementation. It is the proof that implementation worked.</div>
+  </div>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- COMPARISON -->
+<!-- ══════════════════════════════════ -->
+
+<span class="sec-label">Section IX</span>
+<h2>What Is Genuinely New — The Archipelago Against the Vanguard</h2>
+
+<div class="compare-wrap">
+<table class="compare-table">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Role Architecture</th>
+      <th>Dissolution Design</th>
+      <th>Exaptation Mechanism</th>
+      <th>Entrepreneurial Mode</th>
+      <th>Remaining Gap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="n">Haier RenDanHeYi</td>
+      <td>Entrepreneurial ME leaders — stable identity</td>
+      <td>MEs dissolve but not explicitly designed for</td>
+      <td>Implicit — Zhang Ruimin's ecosystem logic enables it</td>
+      <td>Internal market pressure drives continuous reinvention</td>
+      <td>Market discipline as moral engine; communicative practice absent; role still stable</td>
+    </tr>
+    <tr>
+      <td class="n">Morning Star CLOU</td>
+      <td>Self-defined but stable colleague roles</td>
+      <td>Annual CLOU renegotiation only</td>
+      <td>None explicit — bricolage happens informally</td>
+      <td>Voluntary stepping up — strongest in existing system</td>
+      <td>CLOUs are annual not continuous; no explicit exaptation mechanism; dissolution not designed</td>
+    </tr>
+    <tr>
+      <td class="n">Bayer DSO</td>
+      <td>VACC roles — enabling not directing; still role-based</td>
+      <td>90-day cycles — best existing dissolution rhythm</td>
+      <td>None explicit — market signals drive some of it</td>
+      <td>Strong — 90-day cycle creates entrepreneurial pressure</td>
+      <td>Still role-based; exaptation not institutionalised; market pressure as primary engine</td>
+    </tr>
+    <tr>
+      <td class="n">Team of Teams</td>
+      <td>Distributed but functional roles persist</td>
+      <td>Not designed — military missions end, not dissolved</td>
+      <td>None — capability transfer happens but not systematically</td>
+      <td>Empowered execution with strong shared consciousness</td>
+      <td>Military origin limits transfer; no exaptation mechanism; roles functional not fluid</td>
+    </tr>
+    <tr>
+      <td class="n">SINA Freesponsibility</td>
+      <td>Fully fluid — closest to posture model in practice</td>
+      <td>Enterprises dissolve and reform organically</td>
+      <td>Strong — the model itself is an exaptation of education</td>
+      <td>Maximum — 120+ enterprises built without managers</td>
+      <td>Lacks explicit theory of postures and disruption modes; scale requires more infrastructure</td>
+    </tr>
+    <tr>
+      <td class="n">Holacracy / Circles</td>
+      <td>Roles distributed into circles — still positional containers</td>
+      <td>Circles dissolve by governance — bureaucratic</td>
+      <td>None — procedural model resists exaptive thinking</td>
+      <td>Low — governance overhead suppresses entrepreneurial energy</td>
+      <td>Procedural bureaucracy replaces managerial bureaucracy; no exaptation; posture fluency impossible</td>
+    </tr>
+    <tr class="hl">
+      <td class="n">The Archipelago</td>
+      <td>Five fluid postures — no fixed roles, no positional identity</td>
+      <td>Dissolution equally designed as formation; retrospective as primary exaptation event</td>
+      <td>Explicit — Exaptation Register, retrospective audit, Signal scanning function</td>
+      <td>System-wide atmospheric property — bricolage commons, stepping up as norm, posture fluency</td>
+      <td>Motivation dependency; scale requires technological infrastructure; field quality is prerequisite</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="rule"><span class="rule-glyph">·</span></div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SYNTHESIS -->
+<!-- ══════════════════════════════════ -->
+
+<span class="sec-label">Section X — Synthesis</span>
+<h2>The Organisation That Will Not Stand Still</h2>
+
+<p>The SINA Social Innovation Academy has built 120+ social enterprises across nine countries, without a single manager, by giving young people who have never held a formal job the framing (create something that serves your community and sustains itself), the posture orientation (you are responsible — freesponsible — for everything that results), and the Bricolage Commons (the accumulated knowledge, relationships, and process patterns of everyone who built something before you). They did not design a stable organisational form. They designed a condition for perpetual formation.</p>
+
+<p>The Borderland community navigated ten distinct disruption episodes in six weeks — losing their confirmed site, finding a new one, navigating permit processes with a different municipality, reconfiguring their power grid, redesigning their placement maps, responding to fire bans and noise restrictions and the threat of cancellation — without a CEO, without a crisis management team, without a strategic plan that survived contact with reality. They did it because the communicative practices of framing, co-creating, and connecting were already in the water; because people already knew how to step up and claim responsibility without being asked; because the information architecture made the system's activity visible to everyone who needed to see it; and because when the Borderland lost its site, the community's existing capability — its distributed event-planning expertise, its relationships with local authorities, its capacity for rapid coordination across multiple digital platforms — was exapted almost overnight for a purpose it had never been explicitly designed for: finding and securing a new site in ten days.</p>
+
+<p>Morning Star has done this for thirty years in a context — large-scale food manufacturing — that every theory of management insists requires hierarchy, supervision, and centralised control. They have built the world's most productive tomato processing operation by treating every one of their 3,000 colleagues as the architect of their own contribution: responsible to the colleagues they affect, accountable to the enterprise mission they have personally committed to, and free — within those commitments — to do whatever serves best.</p>
+
+<div class="pq"><p>"The Archipelago is not a model that organisations adopt. It is a condition that some organisations have always been in — and that most organisations suppress in the name of efficiency, control, and the comfort of the stable form. The work is not to implement it. The work is to stop suppressing it."</p></div>
+
+<p>The great organisational question of our era is not whether hierarchy should be dismantled. It is what replaces it that is radical enough to match the scale and speed of the disruption, entrepreneurial enough to generate new value rather than merely manage existing value, and coherent enough to coordinate action without reproducing hierarchy's pathologies under a different name. The Archipelago proposes: a sea with islands. A flowing field with temporary crystallisations. A system designed not to achieve a form but to maintain a movement — permanently exaptive, perpetually bricolating, constitutively incapable of the stable form that signals death.</p>
+
+<p>The current is the point. The islands are consequences. And the Archipelago, at its best, is not a place anyone arrives at. It is a way of moving that never stops — toward futures that are not yet imagined, using capabilities that have not yet been discovered to be capabilities, in combinations that no designer has anticipated and no manager has approved.</p>
+
+<p>That is the radical premise. Not as aspiration. As architecture.</p>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="aside">
+  <div class="aside-block">
+    <span class="aside-label">Contents</span>
+    <div class="toc">
+      <span class="toc-part">Prologue</span>
+      <a href="#"><span class="toc-n">—</span>The Organisation That Will Not Stand Still</a>
+
+      <span class="toc-part">Part One</span>
+      <a href="#"><span class="toc-n">I</span>The Crisis of Well-Managed Orgs</a>
+
+      <span class="toc-part">Part Two</span>
+      <a href="#"><span class="toc-n">II</span>流動場 — The Flowing Field</a>
+      <a href="#"><span class="toc-n">III</span>Exaptation — Radical Repurposing</a>
+      <a href="#"><span class="toc-n">IV</span>Bricolage — Entrepreneurial Mode</a>
+
+      <span class="toc-part">Part Three</span>
+      <a href="#"><span class="toc-n">V</span>Five Fluid Leadership Postures</a>
+
+      <span class="toc-part">Part Four</span>
+      <a href="#"><span class="toc-n">VI</span>Four Disruption Modes</a>
+
+      <span class="toc-part">Part Five</span>
+      <a href="#"><span class="toc-n">VII</span>Three Communicative Currents</a>
+      <a href="#"><span class="toc-n">VIII</span>Five Structural Layers</a>
+
+      <span class="toc-part">Part Six</span>
+      <a href="#"><span class="toc-n">IX</span>Sixteen Radical Principles</a>
+      <a href="#"><span class="toc-n">X</span>Comparison · Synthesis</a>
+    </div>
+  </div>
+
+  <div class="aside-block">
+    <span class="aside-label">Core Concepts</span>
+    <div class="aside-note">流動場 Liúdòng Chǎng — the flowing field; the organisation as weather system rather than machine</div>
+    <div class="aside-note">Exaptation — radical repurposing of capabilities across contexts; the Exaptation Register; the Signal as exaptation radar</div>
+    <div class="aside-note">Bricolage — making do with what is at hand; the Bricolage Commons as workspace of latent possibility</div>
+    <div class="aside-note">Posture Fluency — the capacity to move between five orientations without identity anxiety; the primary organisational competence</div>
+    <div class="aside-note">Productive Dissolution — ending as creation; retrospective as primary exaptation event; dissolution protocol designed from island inception</div>
+    <div class="aside-note">Permanent Productive Instability — the organisation designed not to achieve stable form but to sustain perpetual becoming</div>
+  </div>
+
+  <div class="aside-block">
+    <span class="aside-label">The Five Postures</span>
+    <div class="aside-note">錨 ANCHOR — frames the situation; integrates under existential threat; exaptive across crisis domains</div>
+    <div class="aside-note">探 SCOUT — pursues possibilities with full autonomy; generates productive fragmentation; the entrepreneurial engine</div>
+    <div class="aside-note">爐 FORGE — realises outcomes with deep expertise; steps up without permission; accountability to colleagues not managers</div>
+    <div class="aside-note">橋 BRIDGE — connects fragmented activities; produces coherence not deliverables; the most undervalued posture in every organisation</div>
+    <div class="aside-note">訊 SIGNAL — perceives disruptions before they crystallise; scans for exaptive adjacencies; the rarest and most expensive to lose</div>
+  </div>
+
+  <div class="aside-block">
+    <span class="aside-label">Empirical Vanguard</span>
+    <div class="aside-note">SINA: 120+ enterprises · 9 countries · 0 managers · freesponsibility model · exaptation of education</div>
+    <div class="aside-note">Morning Star: 30+ years · 3,000 colleagues · CLOU network · zero titles/hierarchy · largest tomato processor</div>
+    <div class="aside-note">Haier: 4,800 MEs · EMC model · COSMOPlat · ecosystem self-evolution</div>
+    <div class="aside-note">Bayer DSO: 13→6 layers · 90-day cycles · €1.5B saved · 2025 HBS case</div>
+    <div class="aside-note">The Borderland 2018: ten disruption episodes · six weeks · no hierarchy · delivered</div>
+    <div class="aside-note">JSOC (McChrystal): shared consciousness · empowered execution · defeated decentralised adversary</div>
+  </div>
+
+  <div class="aside-block">
+    <span class="aside-label">Theoretical Lineage</span>
+    <div class="aside-note">Stingl & McClellan (2023) — CCO, islands of certainty, disruption typology, communicative currents</div>
+    <div class="aside-note">Gould & Vrba (1982) — exaptation as evolutionary mechanism; feathers for flight</div>
+    <div class="aside-note">Baker & Nelson (2005) — entrepreneurial bricolage; making do with what is at hand</div>
+    <div class="aside-note">Di Domenico, Haugh & Tracey (2010) — social bricolage; the bricoleur's question</div>
+    <div class="aside-note">Hamel & Zanini (2020/2025) — humanocracy; bureaucracy cost; seven principles</div>
+    <div class="aside-note">Laloux (2014) — teal, evolutionary purpose, self-management</div>
+    <div class="aside-note">Wolbers et al. (2018) — fragmentation perspective on coordination</div>
+    <div class="aside-note">Corporate Rebels — progressive structures catalogue; SINA, Morning Star case studies</div>
+    <div class="aside-note">McKinsey State of Organisations 2026 — transformation as permanent condition</div>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-tags">
+    Archipelago Model · 流動場 · Fluid Leadership · Exaptation · Bricolage · Posture Fluency · Permanent Productive Instability · Communicative Constitution · Islands of Certainty · Productive Dissolution · Freesponsibility · Value Islands · Confluence Islands · Horizon Islands · Open Sea Platform · Exaptation Register · Bricolage Commons · Disruption Modes · Post-Hierarchical · Self-Management · Teal · Humanocracy · Shared Consciousness · Swarm Intelligence · Radical Organisation
+  </div>
+</footer>
+
+</body>
+</html>
